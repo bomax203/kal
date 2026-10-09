@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Cancel booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;700&family=Manrope:wght@400;600&display=swap">
+<style>
+:root{--bg:#E3E9EE;--surface:#F0F4F7;--fg:#0F1B26;--muted:#43525F;--line:#C2CDD7;--accent:#195C9B;--on-accent:#FFFFFF;--danger:#9A3A28}
+@media (prefers-color-scheme: dark){:root{--bg:#0F1317;--surface:#171D23;--fg:#F2ECE3;--muted:#AEA79D;--line:#2B353E;--accent:#E3A65C;--on-accent:#14110D;--danger:#E58B76;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:var(--bg);color:var(--fg);font:16px/1.6 "Manrope",system-ui,sans-serif}
+.card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;gap:16px}
+h1{margin:0;font:700 30px/1.05 "Fira Sans Extra Condensed","Arial Narrow",sans-serif;text-transform:uppercase}
+p{margin:0;color:var(--muted)}
+.when{font-weight:600;color:var(--fg);font-size:18px}
+button,a.btn{min-height:50px;border:0;padding:0 22px;font:600 15px/1 "Manrope",sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.danger{background:var(--danger);color:#fff}
+a.btn{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.err{color:var(--danger);font-weight:600;min-height:1.4em}
+</style>
+</head>
+<body>
+<main class="card" id="card">
+  <h1>Your booking</h1>
+  <p id="msg">Loading…</p>
+</main>
+<script>
+(function(){
+  var card=document.getElementById('card'),msg=document.getElementById('msg');
+  var t=new URLSearchParams(location.search).get('t')||'';
+  var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],W=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  function nice(s){var p=s.split('-'),d=new Date(+p[0],p[1]-1,+p[2]);return W[d.getDay()]+' '+d.getDate()+' '+M[d.getMonth()];}
+  function show(title,text){card.innerHTML='<h1></h1><p></p><div class="row"><a class="btn" href="/">Back to the website</a></div>';card.querySelector('h1').textContent=title;card.querySelector('p').textContent=text;}
+
+  fetch('/api/cancel?t='+encodeURIComponent(t)).then(function(r){return r.json();}).then(function(b){
+    if(!b.ok){show('Link not found','This cancel link is not valid. If you need help, call us at [+359 88 000 0000].');return;}
+    var when=nice(b.date)+' at '+b.time;
+    if(b.status==='cancelled'){show('Already cancelled','Your booking on '+when+' is cancelled. You can book a new time on the website.');return;}
+    card.innerHTML='<h1>Your booking</h1><p class="when"></p><p>Can’t make it? Cancel here and the time becomes free for someone else.</p><p class="err" id="err" role="alert"></p><div class="row"><button class="danger" id="go" type="button">Cancel booking</button><a class="btn" href="/">Keep it</a></div>';
+    card.querySelector('.when').textContent=when+' · '+b.service+' × '+b.units;
+    var go=document.getElementById('go'),err=document.getElementById('err');
+    go.addEventListener('click',function(){
+      if(!go.dataset.sure){go.dataset.sure='1';go.textContent='Tap again to confirm';return;}
+      go.disabled=true;go.textContent='Cancelling…';
+      fetch('/api/cancel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t:t})})
+        .then(function(r){return r.json();})
+        .then(function(res){
+          if(res.ok){show('Booking cancelled','Your visit on '+when+' is cancelled. We have been notified. Thank you for letting us know.');return;}
+          if(res.error==='too_late'){show('Too late to cancel online','This visit has already started or passed. Please call us at [+359 88 000 0000].');return;}
+          throw new Error();
+        })
+        .catch(function(){go.disabled=false;go.dataset.sure='';go.textContent='Cancel booking';err.textContent='Could not cancel right now. Please try again or call us.';});
+    });
+  }).catch(function(){msg.textContent='Could not load your booking. Please check your connection and try again.';});
+})();
+</script>
+</body>
+</html>

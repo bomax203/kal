@@ -3,17 +3,15 @@
 // GET /api/slots?date=YYYY-MM-DD               -> {"taken":["09:00","16:00"]}
 // Returns only dates and times — never names or phone numbers.
 
-import { getStore } from "@netlify/blobs";
+import { leadsStore, json } from "../lib/shared.mjs";
 
 export const config = { path: "/api/slots" };
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
-const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
 export default async (req) => {
   const q = new URL(req.url).searchParams;
-  const store = getStore({ name: "leads", consistency: "strong" });
+  const store = leadsStore();
 
   const date = q.get("date");
   if (date) {

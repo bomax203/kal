@@ -264,6 +264,9 @@ form.card{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;ba
 .times-empty{grid-column:1/-1;color:var(--muted);font-size:14px;margin:0}
 .pick-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
 .sel-sum{margin:0;font-weight:600}
+.cancel-note{margin-top:8px;font-size:15px;color:var(--muted)}
+.cancel-note a{color:var(--accent);font-weight:600}
+.cancel-note small{font-size:13px}
 .link-btn{min-height:44px;background:none;border:0;padding:0;color:var(--accent);font:600 14px/1 var(--f-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .form-err{grid-column:1/-1;color:var(--accent);font-weight:600;font-size:14px;min-height:1.4em}
 .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
@@ -793,6 +796,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
         }else{
           form.querySelector('.done h3').textContent='Request received';
           form.querySelector('.done p').textContent=svc+' × '+units+' on '+nice(data.date)+' at '+data.time+'. We will call you within [1 hour] during working hours to confirm.';
+          if(res.cancel){
+            var c=document.createElement('p');
+            c.className='cancel-note';
+            c.innerHTML='Can’t make it? <a></a><br><small>Save this link or take a screenshot — it is your personal cancel link.</small>';
+            var a=c.querySelector('a');a.href=res.cancel;a.textContent='Cancel this booking';
+            form.querySelector('.done').appendChild(c);
+          }
         }
       })
       .catch(function(){
