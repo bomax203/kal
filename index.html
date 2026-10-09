@@ -619,10 +619,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     if(!name){err.textContent='Please enter your name so we know who to ask for.';document.getElementById('f-name').focus();return;}
     if(phone.length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
     err.textContent='';
-    /* REAL SITE: send the request here (Formspree or a Telegram bot) */
+    var btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Sending…';
     var svc=document.getElementById('f-svc').value,units=parseInt(document.getElementById('f-units').value,10)||1;
-    form.innerHTML='<div class="done"><h3>Request received</h3><p></p></div>';
-    form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
+    var data={
+      service:svc,units:units,name:name,phone:document.getElementById('f-phone').value.trim(),
+      area:document.getElementById('f-area').value.trim(),date:document.getElementById('f-date').value,
+      time:document.getElementById('f-time').value,note:document.getElementById('f-note').value.trim(),company:''
+    };
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){
+        if(!r.ok)throw new Error('send failed');
+        form.innerHTML='<div class="done"><h3>Request received</h3><p></p></div>';
+        form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
+      })
+      .catch(function(){
+        btn.disabled=false;btn.textContent='Request appointment';
+        err.textContent='We could not send the request. Please call us at [+359 88 000 0000] or try again.';
+      });
   });
 })();
 </script>
