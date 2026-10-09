@@ -7,7 +7,7 @@
 // Owner (button on /api/leads):
 //   POST /api/cancel  form fields key=<ADMIN_KEY>&lead=<lead key>  -> cancels, then back to the list
 
-import { leadsStore, json, cancelLead, isPast, sameSecret } from "../lib/shared.mjs";
+import { leadsStore, json, cancelLead, isPast, sameSecret, normLang, serviceIn } from "../lib/shared.mjs";
 
 export const config = { path: "/api/cancel" };
 
@@ -28,7 +28,8 @@ export default async (req) => {
     const found = await leadByToken(store, new URL(req.url).searchParams.get("t"));
     if (!found) return json({ ok: false, error: "not_found" }, 404);
     const { lead } = found;
-    return json({ ok: true, date: lead.date, time: lead.time, service: lead.service, units: lead.units, status: lead.status || "booked" });
+    const lang = normLang(lead.lang);
+    return json({ ok: true, lang, date: lead.date, time: lead.time, service: serviceIn(lead.service, lang), units: lead.units, status: lead.status || "booked" });
   }
 
   if (req.method !== "POST") return json({ ok: false, error: "method" }, 405);

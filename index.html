@@ -657,6 +657,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     r.addEventListener('input',function(){f.style.setProperty('--pos',r.value+'%');});
   });
 
+  /* client's language for messages: the site language switch (saved as "site-lang") wins,
+     otherwise the browser language. bg = main, ru (also for uk/be browsers), en for everyone else. */
+  function clientLang(){
+    var s=null;try{s=localStorage.getItem('site-lang');}catch(e){}
+    if(s==='bg'||s==='ru'||s==='en')return s;
+    var ls=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||''];
+    for(var i=0;i<ls.length;i++){
+      var l=String(ls[i]).toLowerCase();
+      if(l.indexOf('bg')===0)return 'bg';
+      if(l.indexOf('ru')===0||l.indexOf('uk')===0||l.indexOf('be')===0)return 'ru';
+      if(l.indexOf('en')===0)return 'en';
+    }
+    return 'bg';
+  }
+
   /* booking calendar */
   var err=document.getElementById('form-err');
   function pad(n){return (n<10?'0':'')+n;}
@@ -775,7 +790,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     var data={
       service:svc,units:units,name:name,phone:document.getElementById('f-phone').value.trim(),
       area:document.getElementById('f-area').value.trim(),date:selDate,
-      time:selTime,note:document.getElementById('f-note').value.trim(),company:''
+      time:selTime,note:document.getElementById('f-note').value.trim(),company:'',lang:clientLang()
     };
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){

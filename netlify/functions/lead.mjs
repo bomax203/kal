@@ -11,7 +11,7 @@
 //   token/<token>              – private cancel link for the client
 
 import { randomBytes } from "node:crypto";
-import { leadsStore, clean, json, isBookable, notifyOwner } from "../lib/shared.mjs";
+import { leadsStore, clean, json, isBookable, notifyOwner, normLang } from "../lib/shared.mjs";
 
 export const config = { path: "/api/lead" };
 
@@ -67,6 +67,7 @@ export default async (req) => {
     date,
     time,
     note: clean(d.note, 800),
+    lang: normLang(d.lang), // client's language: bg / ru / en
     slotKey,
   };
 
@@ -78,6 +79,7 @@ export default async (req) => {
     `Phone: ${phone}`,
     `District: ${lead.area || "-"}`,
     `Note: ${lead.note || "-"}`,
+    `Client language: ${lead.lang.toUpperCase()} (reply in this language)`,
   ].join("\n"));
   lead.delivered = result.channels;
 

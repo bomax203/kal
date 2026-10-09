@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="bg">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
-<title>Cancel booking</title>
+<title>Отказ на час · Cancel booking</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;700&family=Manrope:wght@400;600&display=swap">
 <style>
@@ -26,37 +26,70 @@ a.btn{background:transparent;color:var(--fg);border:1px solid var(--line)}
 </head>
 <body>
 <main class="card" id="card">
-  <h1>Your booking</h1>
-  <p id="msg">Loading…</p>
+  <h1>…</h1>
+  <p id="msg"></p>
 </main>
 <script>
 (function(){
-  var card=document.getElementById('card'),msg=document.getElementById('msg');
-  var t=new URLSearchParams(location.search).get('t')||'';
-  var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],W=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  function nice(s){var p=s.split('-'),d=new Date(+p[0],p[1]-1,+p[2]);return W[d.getDay()]+' '+d.getDate()+' '+M[d.getMonth()];}
-  function show(title,text){card.innerHTML='<h1></h1><p></p><div class="row"><a class="btn" href="/">Back to the website</a></div>';card.querySelector('h1').textContent=title;card.querySelector('p').textContent=text;}
+  var PHONE='[+359 88 000 0000]';
+  var T={
+    bg:{title:'Вашият час',loading:'Зареждане…',notFoundT:'Връзката не е намерена',notFound:'Тази връзка за отказ не е валидна. Ако имате нужда от помощ, обадете ни се на '+PHONE+'.',
+        alreadyT:'Вече е отменен',already:function(w){return 'Вашият час '+w+' е отменен. Можете да запишете нов час на сайта.';},
+        lead:'Не можете да дойдете? Откажете тук и часът ще се освободи за друг клиент.',cancel:'Откажи часа',sure:'Натиснете отново за потвърждение',keep:'Запази го',busy:'Отказване…',
+        doneT:'Часът е отменен',done:function(w){return 'Вашето посещение '+w+' е отменено. Получихме известие. Благодарим, че ни уведомихте.';},
+        lateT:'Твърде късно за онлайн отказ',late:'Посещението вече е започнало или е минало. Моля, обадете ни се на '+PHONE+'.',
+        fail:'В момента не успяхме да откажем часа. Опитайте отново или ни се обадете.',net:'Не успяхме да заредим часа. Проверете връзката и опитайте отново.',back:'Към сайта'},
+    ru:{title:'Ваша запись',loading:'Загрузка…',notFoundT:'Ссылка не найдена',notFound:'Эта ссылка для отмены недействительна. Если нужна помощь, позвоните нам: '+PHONE+'.',
+        alreadyT:'Уже отменено',already:function(w){return 'Ваша запись '+w+' отменена. Вы можете выбрать новое время на сайте.';},
+        lead:'Не получается прийти? Отмените здесь, и время освободится для другого клиента.',cancel:'Отменить запись',sure:'Нажмите ещё раз для подтверждения',keep:'Оставить',busy:'Отменяем…',
+        doneT:'Запись отменена',done:function(w){return 'Ваша запись '+w+' отменена. Мы получили уведомление. Спасибо, что предупредили.';},
+        lateT:'Слишком поздно для отмены онлайн',late:'Визит уже начался или прошёл. Пожалуйста, позвоните нам: '+PHONE+'.',
+        fail:'Сейчас не получилось отменить запись. Попробуйте ещё раз или позвоните нам.',net:'Не удалось загрузить запись. Проверьте интернет и попробуйте снова.',back:'На сайт'},
+    en:{title:'Your booking',loading:'Loading…',notFoundT:'Link not found',notFound:'This cancel link is not valid. If you need help, call us at '+PHONE+'.',
+        alreadyT:'Already cancelled',already:function(w){return 'Your booking on '+w+' is cancelled. You can book a new time on the website.';},
+        lead:'Can’t make it? Cancel here and the time becomes free for someone else.',cancel:'Cancel booking',sure:'Tap again to confirm',keep:'Keep it',busy:'Cancelling…',
+        doneT:'Booking cancelled',done:function(w){return 'Your visit on '+w+' is cancelled. We have been notified. Thank you for letting us know.';},
+        lateT:'Too late to cancel online',late:'This visit has already started or passed. Please call us at '+PHONE+'.',
+        fail:'Could not cancel right now. Please try again or call us.',net:'Could not load your booking. Please check your connection and try again.',back:'Back to the website'}
+  };
+  var LOC={bg:'bg-BG',ru:'ru-RU',en:'en-GB'};
+  function guess(){var s=null;try{s=localStorage.getItem('site-lang');}catch(e){}if(T[s])return s;var l=(navigator.language||'').toLowerCase();return l.indexOf('ru')===0||l.indexOf('uk')===0?'ru':l.indexOf('en')===0?'en':'bg';}
+  var lang=guess(),L=T[lang];
+  var card=document.getElementById('card');
+  card.querySelector('h1').textContent=L.title;document.getElementById('msg').textContent=L.loading;
 
+  function when(date,time){
+    var p=date.split('-'),d=new Date(+p[0],p[1]-1,+p[2]);
+    var day=new Intl.DateTimeFormat(LOC[lang],{weekday:'long',day:'numeric',month:'long'}).format(d);
+    return lang==='bg'?day+' в '+time+' ч.':lang==='ru'?day+' в '+time:day+' at '+time;
+  }
+  function show(title,text){card.innerHTML='<h1></h1><p></p><div class="row"><a class="btn" href="/"></a></div>';card.querySelector('h1').textContent=title;card.querySelector('p').textContent=text;card.querySelector('a').textContent=L.back;}
+
+  var t=new URLSearchParams(location.search).get('t')||'';
   fetch('/api/cancel?t='+encodeURIComponent(t)).then(function(r){return r.json();}).then(function(b){
-    if(!b.ok){show('Link not found','This cancel link is not valid. If you need help, call us at [+359 88 000 0000].');return;}
-    var when=nice(b.date)+' at '+b.time;
-    if(b.status==='cancelled'){show('Already cancelled','Your booking on '+when+' is cancelled. You can book a new time on the website.');return;}
-    card.innerHTML='<h1>Your booking</h1><p class="when"></p><p>Can’t make it? Cancel here and the time becomes free for someone else.</p><p class="err" id="err" role="alert"></p><div class="row"><button class="danger" id="go" type="button">Cancel booking</button><a class="btn" href="/">Keep it</a></div>';
-    card.querySelector('.when').textContent=when+' · '+b.service+' × '+b.units;
+    if(b.lang&&T[b.lang]){lang=b.lang;L=T[lang];document.documentElement.lang=lang;}
+    if(!b.ok){show(L.notFoundT,L.notFound);return;}
+    var w=when(b.date,b.time);
+    if(b.status==='cancelled'){show(L.alreadyT,L.already(w));return;}
+    card.innerHTML='<h1></h1><p class="when"></p><p class="lead"></p><p class="err" id="err" role="alert"></p><div class="row"><button class="danger" id="go" type="button"></button><a class="btn" href="/"></a></div>';
+    card.querySelector('h1').textContent=L.title;
+    card.querySelector('.when').textContent=w+' · '+b.service+' × '+b.units;
+    card.querySelector('.lead').textContent=L.lead;
     var go=document.getElementById('go'),err=document.getElementById('err');
+    go.textContent=L.cancel;card.querySelector('a.btn').textContent=L.keep;
     go.addEventListener('click',function(){
-      if(!go.dataset.sure){go.dataset.sure='1';go.textContent='Tap again to confirm';return;}
-      go.disabled=true;go.textContent='Cancelling…';
+      if(!go.dataset.sure){go.dataset.sure='1';go.textContent=L.sure;return;}
+      go.disabled=true;go.textContent=L.busy;
       fetch('/api/cancel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t:t})})
         .then(function(r){return r.json();})
         .then(function(res){
-          if(res.ok){show('Booking cancelled','Your visit on '+when+' is cancelled. We have been notified. Thank you for letting us know.');return;}
-          if(res.error==='too_late'){show('Too late to cancel online','This visit has already started or passed. Please call us at [+359 88 000 0000].');return;}
+          if(res.ok){show(L.doneT,L.done(w));return;}
+          if(res.error==='too_late'){show(L.lateT,L.late);return;}
           throw new Error();
         })
-        .catch(function(){go.disabled=false;go.dataset.sure='';go.textContent='Cancel booking';err.textContent='Could not cancel right now. Please try again or call us.';});
+        .catch(function(){go.disabled=false;go.dataset.sure='';go.textContent=L.cancel;err.textContent=L.fail;});
     });
-  }).catch(function(){msg.textContent='Could not load your booking. Please check your connection and try again.';});
+  }).catch(function(){document.getElementById('msg').textContent=L.net;});
 })();
 </script>
 </body>

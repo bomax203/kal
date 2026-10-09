@@ -47,6 +47,52 @@ export function sameSecret(a, b) {
   return x.length === y.length && timingSafeEqual(x, y);
 }
 
+// ---- client language: bg (main), ru, en ----
+export const LANGS = ["bg", "ru", "en"];
+export const normLang = (l) => (LANGS.includes(l) ? l : "bg");
+
+// service names as they come from the form (English) -> client's language
+const SERVICES = {
+  "Cleaning & service": { bg: "Почистване и профилактика", ru: "Чистка и обслуживание" },
+  "Installation": { bg: "Монтаж", ru: "Установка" },
+  "Diagnostics & repair": { bg: "Диагностика и ремонт", ru: "Диагностика и ремонт" },
+  "Refrigerant refill": { bg: "Зареждане с фреон", ru: "Заправка фреоном" },
+  "Removal & relocation": { bg: "Демонтаж и преместване", ru: "Демонтаж и перенос" },
+  "New unit advice": { bg: "Консултация за нов климатик", ru: "Консультация по выбору кондиционера" },
+};
+export const serviceIn = (name, lang) => (lang === "en" ? name : SERVICES[name]?.[lang] || name);
+
+const LOCALE = { bg: "bg-BG", ru: "ru-RU", en: "en-GB" };
+export function whenIn(date, time, lang) {
+  const d = new Date(`${date}T12:00:00Z`);
+  const day = isNaN(d) ? date : new Intl.DateTimeFormat(LOCALE[lang], { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(d);
+  if (lang === "bg") return `${day} в ${time} ч.`;
+  if (lang === "ru") return `${day} в ${time}`;
+  return `${day} at ${time}`;
+}
+
+// ready-made messages the owner sends to the client from his own phone
+export function clientMessage(l, kind) {
+  const lang = normLang(l.lang);
+  const s = serviceIn(l.service, lang);
+  const w = whenIn(l.date, l.time, lang);
+  const T = {
+    bg: {
+      confirm: `Здравейте, ${l.name}! Потвърждаваме вашия час: ${s} × ${l.units}, ${w}. Ако нещо се промени, просто отговорете на това съобщение. До скоро!`,
+      cancelled: `Здравейте, ${l.name}! Вашият час (${s}) ${w} беше отменен. Ако искате нов час, отговорете тук или се запишете на нашия сайт. Извиняваме се за неудобството!`,
+    },
+    ru: {
+      confirm: `Здравствуйте, ${l.name}! Подтверждаем вашу запись: ${s} × ${l.units}, ${w}. Если что-то изменится, просто ответьте на это сообщение. До встречи!`,
+      cancelled: `Здравствуйте, ${l.name}! Ваша запись (${s}) ${w} отменена. Если хотите выбрать другое время, ответьте здесь или запишитесь на нашем сайте. Приносим извинения за неудобства!`,
+    },
+    en: {
+      confirm: `Hello ${l.name}! We confirm your booking: ${s} × ${l.units}, ${w}. If anything changes, just reply to this message. See you soon!`,
+      cancelled: `Hello ${l.name}! Your booking (${s}) on ${w} has been cancelled. If you want a new time, reply here or book on our website. Sorry for the inconvenience!`,
+    },
+  };
+  return T[lang][kind];
+}
+
 // ---- notifications to the owner (WhatsApp via CallMeBot and/or Telegram) ----
 export async function notifyOwner(text) {
   const env = process.env;
@@ -108,6 +154,7 @@ export async function cancelLead(store, leadKey, by) {
     `Service: ${lead.service} x ${lead.units}`,
     `Name: ${lead.name}`,
     `Phone: ${lead.phone}`,
+    `Client language: ${normLang(lead.lang).toUpperCase()}`,
     "The time is free again on the website.",
   ].join("\n")).catch(() => {});
 
