@@ -3,227 +3,257 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Furniture Studio Varna</title>
-<meta name="description" content="Made-to-measure furniture and professional furniture assembly in Varna.">
+<title>Varna AC Landing</title>
+<meta name="description" content="Air conditioner cleaning, installation and repair in Varna. Book online.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Commissioner:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: a walk through materials — each section is a material (linen, oak, walnut, slate, sage, graphite) and the page colour glides to it as you scroll; hero is a made-to-measure elevation drawing */
-@property --s-bg{syntax:'<color>';inherits:true;initial-value:#ECE7DF}
-@property --s-fg{syntax:'<color>';inherits:true;initial-value:#1E1B18}
-@property --s-muted{syntax:'<color>';inherits:true;initial-value:#5E574F}
-@property --s-line{syntax:'<color>';inherits:true;initial-value:#CFC7BB}
-@property --s-card{syntax:'<color>';inherits:true;initial-value:#F5F2EC}
-@property --s-accent{syntax:'<color>';inherits:true;initial-value:#7A4E2D}
-@property --s-on-accent{syntax:'<color>';inherits:true;initial-value:#FFFFFF}
+/* Layout: one-page service site in the reference's order (hero → story → services → before/after → process → reviews → booking). Day = light + cool air, night = dark + warm air. */
+/* every colour token is a registered <color>, so the whole palette glides between day and night in one step */
+@property --bg{syntax:'<color>';inherits:true;initial-value:#E3E9EE}
+@property --surface{syntax:'<color>';inherits:true;initial-value:#F0F4F7}
+@property --soft{syntax:'<color>';inherits:true;initial-value:#D6DFE6}
+@property --line{syntax:'<color>';inherits:true;initial-value:#C2CDD7}
+@property --fg{syntax:'<color>';inherits:true;initial-value:#0F1B26}
+@property --muted{syntax:'<color>';inherits:true;initial-value:#43525F}
+@property --accent{syntax:'<color>';inherits:true;initial-value:#195C9B}
+@property --on-accent{syntax:'<color>';inherits:true;initial-value:#FFFFFF}
+@property --air{syntax:'<color>';inherits:true;initial-value:#4FA8E8}
+@property --hero-glow{syntax:'<color>';inherits:true;initial-value:#CCDCEA}
+@property --unit{syntax:'<color>';inherits:true;initial-value:#F7F9FB}
+@property --unit-line{syntax:'<color>';inherits:true;initial-value:#B7C4CF}
 :root{
-  /* light materials */
-  --linen-bg:#ECE7DF; --linen-fg:#1E1B18; --linen-muted:#5E574F; --linen-line:#CFC7BB; --linen-card:#F5F2EC; --linen-accent:#7A4E2D; --linen-on:#FFFFFF;
-  --oak-bg:#E3D1B7; --oak-fg:#241A10; --oak-muted:#5A4836; --oak-line:#C8B191; --oak-card:#EEE2D0; --oak-accent:#6B3F1D; --oak-on:#FFFFFF;
-  --walnut-bg:#3A2A1F; --walnut-fg:#F3E9DC; --walnut-muted:#CDBBA6; --walnut-line:#5A4536; --walnut-card:#47352A; --walnut-accent:#E2B57E; --walnut-on:#2A1D14;
-  --slate-bg:#DCE1E2; --slate-fg:#1B2226; --slate-muted:#4D585E; --slate-line:#BEC7CA; --slate-card:#EEF1F2; --slate-accent:#2E5466; --slate-on:#FFFFFF;
-  --sage-bg:#D7DCCC; --sage-fg:#1E241A; --sage-muted:#4F5846; --sage-line:#B8C0AA; --sage-card:#E8ECDF; --sage-accent:#495C33; --sage-on:#FFFFFF;
-  --graphite-bg:#1F2124; --graphite-fg:#F1EEE8; --graphite-muted:#B3AEA5; --graphite-line:#3A3D42; --graphite-card:#2A2D31; --graphite-accent:#DBA86C; --graphite-on:#1F1A14;
-
-  --s-bg:var(--linen-bg); --s-fg:var(--linen-fg); --s-muted:var(--linen-muted); --s-line:var(--linen-line); --s-card:var(--linen-card); --s-accent:var(--linen-accent); --s-on-accent:var(--linen-on);
-  transition:--s-bg .9s ease,--s-fg .9s ease,--s-muted .9s ease,--s-line .9s ease,--s-card .9s ease,--s-accent .9s ease,--s-on-accent .9s ease;
-
-  --f-display:"Tenor Sans","Gill Sans","Segoe UI",sans-serif;
-  --f-body:"Commissioner","Segoe UI",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --bg:#E3E9EE; --surface:#F0F4F7; --soft:#D6DFE6; --line:#C2CDD7;
+  --fg:#0F1B26; --muted:#43525F;
+  --accent:#195C9B; --on-accent:#FFFFFF;
+  --air:#4FA8E8; --hero-glow:#CCDCEA;
+  --unit:#F7F9FB; --unit-line:#B7C4CF;
+  transition:--bg .45s ease-in-out,--surface .45s ease-in-out,--soft .45s ease-in-out,--line .45s ease-in-out,--fg .45s ease-in-out,--muted .45s ease-in-out,--accent .45s ease-in-out,--on-accent .45s ease-in-out,--air .45s ease-in-out,--hero-glow .45s ease-in-out,--unit .45s ease-in-out,--unit-line .45s ease-in-out;
+  --f-display:"Fira Sans Extra Condensed","Arial Narrow",Impact,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --linen-bg:#1C1A17; --linen-fg:#EEE8DF; --linen-muted:#ABA295; --linen-line:#36322C; --linen-card:#25221E; --linen-accent:#D4A577; --linen-on:#1C1610;
-    --oak-bg:#2A2117; --oak-fg:#F0E4D2; --oak-muted:#C1AE94; --oak-line:#45382A; --oak-card:#33291E; --oak-accent:#E0AE74; --oak-on:#24190E;
-    --walnut-bg:#1F1610; --walnut-fg:#F3E9DC; --walnut-muted:#C4B19B; --walnut-line:#3D2E23; --walnut-card:#2A1F17; --walnut-accent:#E2B57E; --walnut-on:#2A1D14;
-    --slate-bg:#171C1F; --slate-fg:#E7ECEE; --slate-muted:#A2AEB4; --slate-line:#2D363B; --slate-card:#1F262A; --slate-accent:#8DB6C9; --slate-on:#11181C;
-    --sage-bg:#191D16; --sage-fg:#E8ECDF; --sage-muted:#A7B097; --sage-line:#30372A; --sage-card:#21271D; --sage-accent:#B3C690; --sage-on:#161B12;
-    --graphite-bg:#121315; --graphite-fg:#F1EEE8; --graphite-muted:#ABA69D; --graphite-line:#2C2F33; --graphite-card:#1C1E21; --graphite-accent:#DBA86C; --graphite-on:#1F1A14;
+    --bg:#0F1317; --surface:#171D23; --soft:#1F272E; --line:#2B353E;
+    --fg:#F2ECE3; --muted:#AEA79D;
+    --accent:#E3A65C; --on-accent:#14110D;
+    --air:#F0A35E; --hero-glow:#2A1F15;
+    --unit:#E9E4DC; --unit-line:#8F877C;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --linen-bg:#1C1A17; --linen-fg:#EEE8DF; --linen-muted:#ABA295; --linen-line:#36322C; --linen-card:#25221E; --linen-accent:#D4A577; --linen-on:#1C1610;
-  --oak-bg:#2A2117; --oak-fg:#F0E4D2; --oak-muted:#C1AE94; --oak-line:#45382A; --oak-card:#33291E; --oak-accent:#E0AE74; --oak-on:#24190E;
-  --walnut-bg:#1F1610; --walnut-fg:#F3E9DC; --walnut-muted:#C4B19B; --walnut-line:#3D2E23; --walnut-card:#2A1F17; --walnut-accent:#E2B57E; --walnut-on:#2A1D14;
-  --slate-bg:#171C1F; --slate-fg:#E7ECEE; --slate-muted:#A2AEB4; --slate-line:#2D363B; --slate-card:#1F262A; --slate-accent:#8DB6C9; --slate-on:#11181C;
-  --sage-bg:#191D16; --sage-fg:#E8ECDF; --sage-muted:#A7B097; --sage-line:#30372A; --sage-card:#21271D; --sage-accent:#B3C690; --sage-on:#161B12;
-  --graphite-bg:#121315; --graphite-fg:#F1EEE8; --graphite-muted:#ABA69D; --graphite-line:#2C2F33; --graphite-card:#1C1E21; --graphite-accent:#DBA86C; --graphite-on:#1F1A14;
+  --bg:#0F1317; --surface:#171D23; --soft:#1F272E; --line:#2B353E;
+  --fg:#F2ECE3; --muted:#AEA79D;
+  --accent:#E3A65C; --on-accent:#14110D;
+  --air:#F0A35E; --hero-glow:#2A1F15;
+  --unit:#E9E4DC; --unit-line:#8F877C;
   color-scheme:dark;
 }
-:root[data-scene="oak"]{--s-bg:var(--oak-bg);--s-fg:var(--oak-fg);--s-muted:var(--oak-muted);--s-line:var(--oak-line);--s-card:var(--oak-card);--s-accent:var(--oak-accent);--s-on-accent:var(--oak-on)}
-:root[data-scene="walnut"]{--s-bg:var(--walnut-bg);--s-fg:var(--walnut-fg);--s-muted:var(--walnut-muted);--s-line:var(--walnut-line);--s-card:var(--walnut-card);--s-accent:var(--walnut-accent);--s-on-accent:var(--walnut-on)}
-:root[data-scene="slate"]{--s-bg:var(--slate-bg);--s-fg:var(--slate-fg);--s-muted:var(--slate-muted);--s-line:var(--slate-line);--s-card:var(--slate-card);--s-accent:var(--slate-accent);--s-on-accent:var(--slate-on)}
-:root[data-scene="sage"]{--s-bg:var(--sage-bg);--s-fg:var(--sage-fg);--s-muted:var(--sage-muted);--s-line:var(--sage-line);--s-card:var(--sage-card);--s-accent:var(--sage-accent);--s-on-accent:var(--sage-on)}
-:root[data-scene="graphite"]{--s-bg:var(--graphite-bg);--s-fg:var(--graphite-fg);--s-muted:var(--graphite-muted);--s-line:var(--graphite-line);--s-card:var(--graphite-card);--s-accent:var(--graphite-accent);--s-on-accent:var(--graphite-on)}
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--s-bg)}
-body{background:var(--s-bg);color:var(--s-fg);font:300 17px/1.7 var(--f-body);margin:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--f-body);margin:0}
 a{color:inherit}
-h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+h1,h2,h3{margin:0;text-wrap:balance}
 p{margin:0}
-strong,b{font-weight:500}
-:focus-visible{outline:2px solid var(--s-accent);outline-offset:3px}
-.wrap{max-width:1200px;margin:0 auto;padding-inline:20px}
-section{padding-block:112px}
-.over{display:flex;align-items:center;gap:14px;font:400 13px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--s-muted)}
-.over::before{content:"";width:36px;height:1px;background:var(--s-accent)}
-.h2{font:400 clamp(34px,4.6vw,56px)/1.08 var(--f-display);letter-spacing:-.005em}
-.lead{color:var(--s-muted);font-size:19px;max-width:56ch}
-.sec-head{display:flex;flex-direction:column;gap:18px;margin-bottom:52px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+section{padding-block:96px}
+.eyebrow{font:600 14px/1 var(--f-display);letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.h2{font:700 clamp(34px,5vw,56px)/1.02 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.lead{color:var(--muted);font-size:18px;max-width:60ch}
+.sec-head{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;font:500 15px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--s-fg);cursor:pointer;transition:transform .2s ease}
-.btn-primary{background:var(--s-accent);border-color:var(--s-accent);color:var(--s-on-accent)}
-.btn-ghost{background:transparent;color:var(--s-fg)}
-.btn:hover{transform:translateY(-2px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;font:600 16px/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-outline{border-color:var(--fg);color:var(--fg);background:transparent}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--s-bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--s-line)}
-.top .wrap{display:flex;align-items:center;gap:12px 30px;padding-block:16px;flex-wrap:wrap}
-.logo{text-decoration:none;margin-right:auto;display:flex;flex-direction:column;line-height:1.1}
-.logo b{font:400 22px/1 var(--f-display);letter-spacing:.06em}
-.logo span{font:400 11px/1.4 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--s-muted)}
-.nav{display:flex;gap:4px 26px;flex-wrap:wrap}
-.nav a{text-decoration:none;font-size:15px;color:var(--s-muted);padding-block:10px}
-.nav a:hover{color:var(--s-fg)}
-.top .btn{min-height:44px;padding:0 20px;font-size:13px}
-@media (max-width:960px){.nav{display:none}}
-@media (max-width:480px){.top .btn{display:none}}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px 28px;padding-block:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+.logo-box{width:42px;height:42px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:700 16px/1 var(--f-display);letter-spacing:.04em}
+.logo-txt{display:flex;flex-direction:column;line-height:1.05}
+.logo-txt b{font:700 19px/1.05 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
+.logo-txt span{font:500 11px/1.2 var(--f-display);letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+.nav{display:flex;gap:6px 26px;flex-wrap:wrap}
+.nav a{font:500 14px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding-block:12px}
+.nav a:hover{color:var(--fg)}
+.sky{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:500 13px/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:999px}
+.sky svg{color:var(--accent)}
+.top .btn{min-height:44px;padding:0 20px;font-size:14px}
+@media (max-width:980px){.nav{display:none}}
+@media (max-width:520px){.top .btn{display:none}}
 
 /* hero */
-.hero{padding-block:64px 104px}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
+.hero{position:relative;overflow:hidden;padding-block:72px 96px;background:radial-gradient(1200px 520px at 75% 20%,var(--hero-glow),transparent 70%)}
+#air{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
 @media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
-.hero-copy{display:flex;flex-direction:column;gap:26px;min-width:0}
-.hero h1{font:400 clamp(44px,6.6vw,84px)/1.02 var(--f-display);letter-spacing:-.015em}
-.hero h1 em{font-style:normal;color:var(--s-accent)}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.hero-phone{font-size:15px;color:var(--s-muted)}
-.hero-phone b{font:400 15px/1 var(--f-mono);color:var(--s-fg);user-select:all}
-.drawing{color:var(--s-fg);min-width:0}
-.drawing svg{width:100%;height:auto;max-width:460px;display:block;margin-inline:auto}
-.drawing .ln{fill:none;stroke:currentColor;stroke-width:1.4}
-.drawing .dim{fill:none;stroke:var(--s-accent);stroke-width:1}
-.drawing text{font:400 12px var(--f-mono);fill:var(--s-accent)}
-.drawing .draw{stroke-dasharray:1400;stroke-dashoffset:0;animation:draw 2.2s ease-out both}
-@keyframes draw{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
-.drawing figcaption{text-align:center;font:400 12px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--s-muted);margin-top:10px}
-.drawing figure{margin:0}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.brand-line{font:600 clamp(18px,2.4vw,28px)/1 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font:700 clamp(54px,9vw,112px)/.92 var(--f-display);text-transform:uppercase;letter-spacing:-.005em}
+.hero h1 .w{display:block}
+.hero h1 .day{color:var(--accent)}
+.hero .lead{font-size:19px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+.hero-phone{font-size:15px;color:var(--muted)}
+.hero-phone b{font:500 15px/1 var(--f-mono);color:var(--fg);user-select:all}
+
+.unit-wrap{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.unit-wrap svg{width:100%;max-width:520px;height:auto;overflow:visible}
+.unit-body{fill:var(--unit);stroke:var(--unit-line);stroke-width:2}
+.unit-line{stroke:var(--unit-line);stroke-width:2}
+.unit-led{fill:var(--accent)}
+.unit-temp{font:700 22px var(--f-mono);fill:var(--accent)}
+.flow{fill:none;stroke:var(--air);stroke-width:3;stroke-linecap:round;stroke-dasharray:14 22;animation:flow 2.6s linear infinite;opacity:.8}
+.flow.f2{animation-duration:3.2s;opacity:.55}
+.flow.f3{animation-duration:2.9s;opacity:.4}
+@keyframes flow{to{stroke-dashoffset:-144}}
+.mode-chip{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--line);background:var(--surface);padding:10px 16px;font:500 13px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.mode-chip i{width:9px;height:9px;border-radius:50%;background:var(--air);display:block}
 
 /* story */
-.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
 @media (max-width:900px){.story{grid-template-columns:minmax(0,1fr)}}
-.slot{aspect-ratio:4/5;max-width:100%;background:var(--s-card);border:1px solid var(--s-line);display:grid;place-items:center;text-align:center;padding:20px;color:var(--s-muted);font:400 13px/1.5 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.photo-slot{aspect-ratio:4/3;max-width:100%;background:repeating-linear-gradient(135deg,var(--soft) 0 14px,var(--surface) 14px 28px);border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);font:500 14px/1.4 var(--f-display);letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:20px}
 .story-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
-.story-copy p{color:var(--s-muted)}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:16px;border-top:1px solid var(--s-line)}
-.stats div{padding:22px 16px 0 0}
-.stats b{display:block;font:400 clamp(30px,3.6vw,44px)/1 var(--f-display)}
-.stats span{font-size:14px;color:var(--s-muted)}
+.story-copy p{color:var(--muted);font-size:17px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px;border-top:1px solid var(--line);padding-top:24px}
+.stats b{display:block;font:700 clamp(32px,4vw,44px)/1 var(--f-display);color:var(--accent)}
+.stats span{font:500 12px/1.3 var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
-/* make */
-.make{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--s-line);border:1px solid var(--s-line)}
-@media (max-width:1000px){.make{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.make{grid-template-columns:minmax(0,1fr)}}
-.make article{background:var(--s-card);padding:30px 26px;display:flex;flex-direction:column;gap:12px;min-height:240px}
-.make .k{font:400 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--s-accent)}
-.make h3{font:400 28px/1.1 var(--f-display);margin-top:auto}
-.make p{color:var(--s-muted);font-size:15px}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+@media (max-width:900px){.svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.svc{grid-template-columns:minmax(0,1fr)}}
+.svc article{background:var(--surface);padding:30px 28px;display:flex;flex-direction:column;gap:12px}
+.svc .ic{width:44px;height:44px;color:var(--accent)}
+.svc h3{font:600 22px/1.15 var(--f-display);text-transform:uppercase;letter-spacing:.04em}
+.svc p{color:var(--muted);font-size:15px}
+.svc .meta{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line)}
+.svc .price{font:700 20px/1 var(--f-mono);color:var(--accent)}
+.svc .dur{font:500 14px/1 var(--f-mono);color:var(--muted)}
 
-/* assembly */
-.assembly{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
-@media (max-width:900px){.assembly{grid-template-columns:minmax(0,1fr)}}
-.assembly-copy{display:flex;flex-direction:column;gap:20px}
-.ticks{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
-.ticks li{display:flex;gap:14px;align-items:flex-start}
-.ticks svg{flex:none;margin-top:5px;color:var(--s-accent)}
-.prices{border-top:1px solid var(--s-line)}
-.prices div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--s-line)}
-.prices b{display:block;font:400 21px/1.3 var(--f-display)}
-.prices span{font-size:14px;color:var(--s-muted)}
-.prices .pr{font:400 18px/1 var(--f-mono);color:var(--s-accent);white-space:nowrap}
+/* power calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--line);background:var(--surface)}
+@media (max-width:820px){.calc{grid-template-columns:minmax(0,1fr)}}
+.calc-in{display:flex;flex-direction:column;gap:22px;padding:32px}
+.calc-in > label{font:500 13px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.range-row{display:flex;gap:16px;align-items:center}
+.range-row input{flex:1;accent-color:var(--accent);min-width:0;height:28px}
+.range-row output{font:700 28px/1 var(--f-mono);min-width:5ch;text-align:right}
+.check{display:flex;gap:12px;align-items:center;min-height:44px;cursor:pointer;font-size:15px}
+.check input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.calc-out{background:var(--soft);padding:32px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.calc-out small{font:500 12px/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.calc-out .big{font:700 clamp(44px,6vw,64px)/1 var(--f-display);color:var(--accent);letter-spacing:.01em}
+.calc-out .kw{font:500 15px/1.4 var(--f-mono)}
+.calc-out .hint{color:var(--muted);font-size:15px}
+.calc-scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-block:8px}
+.calc-scale span{font:500 13px/1 var(--f-mono);text-align:center;padding:10px 4px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.calc-scale span.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 
-/* gallery */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
-.filters button{min-height:44px;border:1px solid var(--s-line);background:transparent;color:var(--s-muted);padding:0 18px;font:400 15px/1 var(--f-body);cursor:pointer}
-.filters button[aria-pressed="true"]{border-color:var(--s-fg);color:var(--s-fg)}
-.gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;grid-auto-flow:dense}
-@media (max-width:820px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.gal figure{margin:0;position:relative;aspect-ratio:4/5;max-width:100%;background:var(--s-card);border:1px solid var(--s-line);display:grid;place-items:center;color:var(--s-muted);font:400 13px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;overflow:hidden}
-.gal figure.wide{grid-column:span 2;aspect-ratio:auto}
-.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;font:400 14px/1.3 var(--f-body);letter-spacing:0;text-transform:none;color:var(--s-fg);background:linear-gradient(transparent,color-mix(in srgb,var(--s-card) 92%,transparent))}
-.gal-note{margin-top:22px;font-size:14px;color:var(--s-muted)}
+/* before / after */
+.ba-band{background:var(--surface);border-block:1px solid var(--line)}
+.ba-band .wrap{max-width:960px}
+.ba-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.ba-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.ba-grid{grid-template-columns:minmax(0,1fr)}}
+.ba{display:flex;flex-direction:column;gap:8px;min-width:0}
+.ba h3{font-size:17px!important}
+.ba p{font-size:14px!important}
+.ba-frame{position:relative;aspect-ratio:3/2;max-width:100%;overflow:hidden;user-select:none;touch-action:pan-y}
+.ba-knob{width:36px!important;height:36px!important;margin:-18px 0 0 -18px!important}
+.ba-tag{font-size:10px!important;padding:5px 8px!important;top:8px!important}
+.ba-tag.l{left:8px!important}.ba-tag.r{right:8px!important}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin:0;padding:0;list-style:none}
-@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}}
-.steps li{border-top:1px solid var(--s-fg);padding-top:20px;display:flex;flex-direction:column;gap:10px}
-.steps .num{font:400 13px/1 var(--f-mono);letter-spacing:.14em;color:var(--s-accent)}
-.steps h3{font:400 24px/1.15 var(--f-display)}
-.steps p{color:var(--s-muted);font-size:15px}
+/* gentle day/night change */
+.ba-layer{position:absolute;inset:0}
+.ba-after{clip-path:inset(0 0 0 var(--pos,50%))}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:#FFFFFF;box-shadow:0 0 0 1px rgba(0,0,0,.25);pointer-events:none}
+.ba-knob{position:absolute;top:50%;left:var(--pos,50%);width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#FFFFFF;color:#0F1B26;display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.3);pointer-events:none}
+.ba-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba-range:focus-visible + .ba-line{box-shadow:0 0 0 3px var(--accent)}
+.ba-tag{position:absolute;top:12px;padding:6px 10px;font:600 12px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;background:rgba(15,27,38,.78);color:#FFFFFF;pointer-events:none}
+.ba-tag.l{left:12px}.ba-tag.r{right:12px}
+.ba h3{font:600 20px/1.2 var(--f-display);text-transform:uppercase;letter-spacing:.06em}
+.ba p{color:var(--muted);font-size:15px}
+.ba-note{margin-top:28px;font-size:14px;color:var(--muted)}
+/* illustrated textures (stand-ins until real photos) */
+.coil-clean{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 40%,rgba(0,0,0,.08)),repeating-linear-gradient(90deg,#D9E1E7 0 3px,#9DABB6 3px 4px,#EEF2F5 4px 8px)}
+.coil-dirty{background:radial-gradient(60% 40% at 30% 30%,rgba(92,78,58,.75),transparent 70%),radial-gradient(50% 50% at 75% 65%,rgba(70,62,50,.8),transparent 70%),radial-gradient(40% 30% at 50% 90%,rgba(40,48,30,.7),transparent 70%),linear-gradient(180deg,rgba(120,110,90,.55),rgba(80,72,58,.6)),repeating-linear-gradient(90deg,#B9B4A8 0 3px,#7E786C 3px 4px,#C9C3B6 4px 8px)}
+.filter-clean{background:repeating-linear-gradient(0deg,rgba(40,60,80,.18) 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,rgba(40,60,80,.18) 0 1px,transparent 1px 6px),linear-gradient(135deg,#F4F7F9,#DCE5EC)}
+.filter-dirty{background:radial-gradient(45% 35% at 40% 40%,rgba(110,104,96,.85),transparent 72%),radial-gradient(40% 40% at 72% 70%,rgba(96,90,82,.8),transparent 70%),radial-gradient(30% 25% at 20% 80%,rgba(120,114,104,.7),transparent 70%),repeating-linear-gradient(0deg,rgba(40,40,40,.25) 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,rgba(40,40,40,.25) 0 1px,transparent 1px 6px),linear-gradient(135deg,#B8B2A8,#8D877C)}
+.fan-clean{background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 20%,transparent 80%,rgba(0,0,0,.25)),repeating-linear-gradient(0deg,#3A4550 0 5px,#C8D2DA 5px 7px,#7A8793 7px 14px)}
+.fan-dirty{background:radial-gradient(10% 14% at 22% 30%,#111 0,transparent 70%),radial-gradient(12% 10% at 60% 55%,#141414 0,transparent 70%),radial-gradient(9% 12% at 80% 25%,#0E0E0E 0,transparent 70%),radial-gradient(14% 10% at 40% 80%,#151515 0,transparent 70%),linear-gradient(90deg,rgba(0,0,0,.4),transparent 20%,transparent 80%,rgba(0,0,0,.4)),repeating-linear-gradient(0deg,#2A2C2A 0 5px,#5D5E52 5px 7px,#3E403A 7px 14px)}
+
+/* process */
+.proc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0;padding:0;border-top:1px solid var(--line)}
+@media (max-width:820px){.proc{grid-template-columns:minmax(0,1fr)}}
+.proc li{list-style:none;padding:26px 24px 26px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px}
+.proc .n{font:700 28px/1 var(--f-display);color:var(--accent)}
+.proc h3{font:600 19px/1.25 var(--f-display);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.proc p{color:var(--muted);font-size:15px}
 
 /* reviews */
-.rev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:88px}
+.rev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 @media (max-width:900px){.rev{grid-template-columns:minmax(0,1fr)}}
-.rev figure{margin:0;padding:30px;background:var(--s-card);border:1px solid var(--s-line);display:flex;flex-direction:column;gap:16px}
-.rev .stars{color:var(--s-accent);letter-spacing:.2em;font-size:14px}
-.rev blockquote{margin:0;font:400 19px/1.45 var(--f-display)}
-.rev figcaption{font-size:14px;color:var(--s-muted)}
+.rev figure{margin:0;background:var(--surface);border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;gap:14px}
+.stars{color:var(--accent);letter-spacing:.25em}
+.rev blockquote{margin:0;font-size:17px;color:var(--muted)}
+.rev figcaption{font:500 13px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase}
 
-/* order */
-.order{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start}
-@media (max-width:900px){.order{grid-template-columns:minmax(0,1fr)}}
-.order-side{display:flex;flex-direction:column;gap:20px}
-.clist{display:flex;flex-direction:column;margin-top:6px;border-top:1px solid var(--s-line)}
-.clist div{display:flex;flex-direction:column;gap:4px;padding-block:14px;border-bottom:1px solid var(--s-line)}
-.clist span{font:400 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--s-muted)}
-.clist a{color:var(--s-accent)}
-form.card{background:var(--s-card);border:1px solid var(--s-line);padding:32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+/* booking */
+.book-band{background:var(--surface);border-top:1px solid var(--line)}
+.book{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:start}
+@media (max-width:900px){.book{grid-template-columns:minmax(0,1fr)}}
+.book-side{display:flex;flex-direction:column;gap:18px}
+.clist{display:flex;flex-direction:column;margin-top:8px}
+.clist div{display:flex;flex-direction:column;gap:3px;padding-block:14px;border-bottom:1px solid var(--line)}
+.clist span{font:500 12px/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.clist b{font-weight:600}
+.clist a{color:var(--accent)}
+form.card{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;background:var(--bg);border:1px solid var(--line);padding:30px}
 @media (max-width:600px){form.card{grid-template-columns:minmax(0,1fr);padding:20px}}
-.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field.full{grid-column:1/-1}
-.field > label,.legend{font:400 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--s-muted)}
-.field input,.field select,.field textarea{font:inherit;font-weight:400;color:var(--s-fg);background:var(--s-bg);border:1px solid var(--s-line);padding:12px 14px;min-height:50px;width:100%}
+.field label{font:500 12px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);padding:12px 14px;min-height:50px;width:100%}
 .field textarea{min-height:92px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--s-accent);outline:none}
-.field input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1;width:18px;height:18px;background:var(--s-muted);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/18px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/18px no-repeat}
-.toggle{display:flex;border:1px solid var(--s-line)}
-.toggle button{flex:1;min-height:46px;border:0;background:transparent;color:var(--s-muted);font:400 15px/1 var(--f-body);cursor:pointer}
-.toggle button[aria-pressed="true"]{background:var(--s-fg);color:var(--s-bg)}
-.pick{display:flex;flex-wrap:wrap;gap:8px}
-.pick label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--s-line);cursor:pointer;font-size:15px;font-weight:400}
-.pick input{accent-color:var(--s-accent);width:17px;height:17px}
-.pick label:has(input:checked){border-color:var(--s-fg)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);outline:none}
+.field input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1;width:20px;height:20px;background:var(--muted);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/20px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/20px no-repeat}
+.field input[type="date"]::-webkit-calendar-picker-indicator:hover{background:var(--accent)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-err{grid-column:1/-1;color:var(--s-accent);font-weight:500;font-size:14px;min-height:1.4em}
-.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-.form-foot small{color:var(--s-muted);font-size:13px;max-width:36ch}
-.done{grid-column:1/-1;text-align:center;padding:44px 10px;display:flex;flex-direction:column;gap:12px;align-items:center}
-.done h3{font:400 32px/1 var(--f-display)}
-.done p{color:var(--s-muted)}
+.form-err{grid-column:1/-1;color:var(--accent);font-weight:600;font-size:14px;min-height:1.4em}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.form-foot small{color:var(--muted);font-size:13px;max-width:38ch}
+.done{grid-column:1/-1;text-align:center;padding:44px 10px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.done h3{font:700 32px/1 var(--f-display);text-transform:uppercase}
+.done p{color:var(--muted)}
 
-footer{border-top:1px solid var(--s-line);padding-block:28px 110px;color:var(--s-muted);font-size:14px}
+footer{border-top:1px solid var(--line);padding-block:30px 110px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
 
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--s-card);border-top:1px solid var(--s-line)}
-.mbar .btn{flex:1;min-height:48px;font-size:13px;padding:0 12px}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line)}
+.mbar .btn{flex:1;min-height:48px;padding:0 12px;font-size:14px}
 @media (max-width:700px){.mbar{display:flex}}
 
 /* scroll reveal */
-.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .js .reveal.in{opacity:1;transform:none}
-.js .d1{transition-delay:.1s}.js .d2{transition-delay:.2s}.js .d3{transition-delay:.3s}
+.js .reveal.d1{transition-delay:.1s}.js .reveal.d2{transition-delay:.2s}.js .reveal.d3{transition-delay:.3s}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  :root{transition:none}
   .js .reveal{opacity:1;transform:none;transition:none}
-  .drawing .draw{animation:none}
-  .btn:hover{transform:none}
+  .flow{animation:none}
+  *{transition:none!important}
 }
 </style>
 </head>
@@ -231,162 +261,206 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top"><b>[Brand]</b><span>Furniture · Varna</span></a>
+    <a class="logo" href="#top"><span class="logo-box">AC</span><span class="logo-txt"><b>[Brand]</b><span>Air conditioning</span></span></a>
     <nav class="nav" aria-label="Main">
-      <a href="#story">Story</a>
-      <a href="#make">Furniture</a>
-      <a href="#assembly">Assembly</a>
-      <a href="#projects">Projects</a>
-      <a href="#order">Contact</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#power">Calculator</a>
+      <a href="#results">Before / After</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <a class="btn btn-primary" href="#order">Free measuring</a>
+    <button class="sky" id="sky" type="button" aria-label="Switch day or night"></button>
+    <a class="btn btn-primary" href="#book">Book now</a>
   </div>
 </header>
 
 <main id="top">
 
-<section class="hero" data-scene="linen">
+<section class="hero">
+  <canvas id="air" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="hero-copy">
-      <span class="over reveal in">Made to measure · Varna</span>
-      <h1 class="reveal in">Furniture made for your room, <em>to the millimetre.</em></h1>
-      <p class="lead reveal in">We design and build kitchens, wardrobes and bedrooms for Varna homes, and assemble the furniture you buy elsewhere. One team from first measurement to the last screw.</p>
+      <span class="brand-line reveal in">[Brand] Air Conditioning</span>
+      <h1 class="reveal in"><span class="w">Cool days.</span><span class="w day">Warm nights.</span></h1>
+      <p class="lead reveal in">Air conditioner cleaning, installation and repair in Varna. Fresh air all year, from people who show up on time.</p>
       <div class="cta-row reveal in">
-        <a class="btn btn-primary" href="#order">Book a free measuring visit</a>
-        <a class="btn btn-ghost" href="#projects">Our projects</a>
+        <a class="btn btn-primary" href="#book">Book appointment</a>
+        <a class="btn btn-outline" href="#services">Our services</a>
       </div>
-      <p class="hero-phone reveal in">Or call: <b>[+359 88 000 0000]</b></p>
+      <p class="hero-phone reveal in">Call us: <b>[+359 88 000 0000]</b></p>
     </div>
-    <div class="drawing reveal in">
-      <figure>
-        <svg viewBox="0 0 440 470" aria-hidden="true">
-          <rect class="ln draw" x="80" y="40" width="300" height="360"/>
-          <line class="ln draw" x1="80" y1="104" x2="380" y2="104"/>
-          <line class="ln draw" x1="80" y1="382" x2="380" y2="382"/>
-          <line class="ln draw" x1="180" y1="40" x2="180" y2="382"/>
-          <line class="ln draw" x1="280" y1="40" x2="280" y2="382"/>
-          <line class="ln draw" x1="170" y1="200" x2="170" y2="250"/>
-          <line class="ln draw" x1="190" y1="200" x2="190" y2="250"/>
-          <line class="ln draw" x1="270" y1="200" x2="270" y2="250"/>
-          <line class="ln draw" x1="290" y1="200" x2="290" y2="250"/>
-          <line class="ln draw" x1="370" y1="200" x2="370" y2="250"/>
-          <line class="ln draw" x1="90" y1="200" x2="90" y2="250"/>
-          <line class="ln" x1="80" y1="400" x2="80" y2="410" />
-          <line class="dim" x1="44" y1="40" x2="44" y2="400"/>
-          <line class="dim" x1="38" y1="40" x2="50" y2="40"/>
-          <line class="dim" x1="38" y1="400" x2="50" y2="400"/>
-          <text x="30" y="226" transform="rotate(-90 30 226)" text-anchor="middle">2400</text>
-          <line class="dim" x1="80" y1="436" x2="380" y2="436"/>
-          <line class="dim" x1="80" y1="430" x2="80" y2="442"/>
-          <line class="dim" x1="380" y1="430" x2="380" y2="442"/>
-          <text x="230" y="458" text-anchor="middle">1800</text>
-          <line class="dim" x1="404" y1="40" x2="404" y2="104"/>
-          <line class="dim" x1="398" y1="40" x2="410" y2="40"/>
-          <line class="dim" x1="398" y1="104" x2="410" y2="104"/>
-          <text x="418" y="76">400</text>
-        </svg>
-        <figcaption>Built-in wardrobe · elevation · mm</figcaption>
-      </figure>
+
+    <div class="unit-wrap reveal in" aria-hidden="true">
+      <svg viewBox="0 0 520 330">
+        <rect class="unit-body" x="40" y="20" width="440" height="120" rx="22"/>
+        <line class="unit-line" x1="70" y1="112" x2="450" y2="112"/>
+        <line class="unit-line" x1="70" y1="122" x2="450" y2="122"/>
+        <rect x="372" y="46" width="70" height="34" rx="6" fill="none" class="unit-line"/>
+        <text class="unit-temp" id="unit-temp" x="407" y="71" text-anchor="middle">20°</text>
+        <circle class="unit-led" cx="78" cy="56" r="5"/>
+        <path class="flow" d="M110 150 C 130 200, 90 240, 120 300"/>
+        <path class="flow f2" d="M190 150 C 215 205, 170 250, 205 310"/>
+        <path class="flow" d="M270 150 C 295 205, 250 245, 285 305"/>
+        <path class="flow f3" d="M350 150 C 375 200, 330 250, 365 310"/>
+        <path class="flow f2" d="M430 150 C 450 200, 410 245, 440 300"/>
+      </svg>
+      <span class="mode-chip"><i></i><span id="mode-txt">Day · cooling 20°</span></span>
     </div>
   </div>
 </section>
 
-<section id="story" data-scene="oak">
+<section id="about">
   <div class="wrap story">
-    <div class="slot reveal">[Photo: the workshop or the team at work]</div>
+    <div class="photo-slot reveal">[Photo of the team or the van]</div>
     <div class="story-copy">
-      <span class="over reveal">Our story</span>
-      <h2 class="h2 reveal">A family workshop that still measures twice</h2>
-      <p class="reveal">[Brand] started in [year] as a small workshop in [district]. We built kitchens for friends first, then for their neighbours, and the word spread.</p>
-      <p class="reveal">Today we design, produce and install furniture all over Varna, and assemble furniture from any store. Our rule has not changed: honest prices, clean work, and a call back when we say we will.</p>
+      <span class="eyebrow reveal">Our story</span>
+      <h2 class="h2 reveal">A small team that treats your home like its own</h2>
+      <p class="reveal">[Brand] started in [year] with one van and one technician. Today we clean, install and repair air conditioners across Varna, from studio flats in Levski to houses in Vinitsa.</p>
+      <p class="reveal">We cover the floor, protect the wall and show you photos of the result. You see exactly what was done and what you paid for.</p>
       <div class="stats reveal">
-        <div><b>[15]</b><span>years in Varna</span></div>
-        <div><b>[1 200+]</b><span>rooms furnished</span></div>
+        <div><b>[10+]</b><span>Years in Varna</span></div>
+        <div><b>[5000+]</b><span>Units serviced</span></div>
         <div><b>[4.9]</b><span>Google rating</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="make" data-scene="oak" style="padding-top:0">
+<section id="services" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="over reveal">What we make</span>
-      <h2 class="h2 reveal">Furniture to measure</h2>
-      <p class="lead reveal">You see a 3D drawing and a fixed price before anything is cut.</p>
+      <span class="eyebrow reveal">What we offer</span>
+      <h2 class="h2 reveal">Services &amp; prices</h2>
+      <p class="lead reveal">Prices per unit. Several units at one address get a discount.</p>
     </div>
-    <div class="make">
-      <article class="reveal"><span class="k">Kitchens</span><h3>Kitchens</h3><p>Straight, corner or with an island. Your choice of fronts, worktops and fittings.</p></article>
-      <article class="reveal d1"><span class="k">Storage</span><h3>Wardrobes</h3><p>Built-in, sliding doors or walk-in. Every centimetre of the niche used.</p></article>
-      <article class="reveal d2"><span class="k">Bedrooms</span><h3>Bedrooms &amp; kids' rooms</h3><p>Beds, desks and storage that fit the room and grow with the child.</p></article>
-      <article class="reveal d3"><span class="k">Living</span><h3>Living &amp; hallway</h3><p>TV walls, shelving, shoe cabinets and entry benches.</p></article>
+    <div class="svc">
+      <article class="reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="8" rx="2"/><path d="M6 17c1 1.5 0 3 1 4M12 17c1 1.5 0 3 1 4M18 17c1 1.5 0 3 1 4"/></svg>
+        <h3>Cleaning &amp; service</h3><p>Filters, heat exchanger with active foam, drain line, fan drum and disinfection.</p>
+        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[60 min]</span></div></article>
+      <article class="reveal d1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>
+        <h3>Installation</h3><p>Pipe run up to [3] m, vacuum test, leak check and a test of every mode.</p>
+        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[3 h]</span></div></article>
+      <article class="reveal d2">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>Diagnostics &amp; repair</h3><p>Error codes, weak cooling, water leaks. We quote the price before we start.</p>
+        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[on site]</span></div></article>
+      <article class="reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>
+        <h3>Refrigerant refill</h3><p>We find the leak first, then refill. Otherwise the problem is back in a month.</p>
+        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[60 min]</span></div></article>
+      <article class="reveal d1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+        <h3>Removal &amp; relocation</h3><p>Safe removal with refrigerant recovery, and re-installation at the new place.</p>
+        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[1–3 h]</span></div></article>
+      <article class="reveal d2">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+        <h3>New unit advice</h3><p>We size the unit to your room, not to the ad. Free consultation on site.</p>
+        <div class="meta"><span class="price">Free</span><span class="dur">[visit]</span></div></article>
     </div>
   </div>
 </section>
 
-<section id="assembly" data-scene="walnut">
-  <div class="wrap assembly">
-    <div class="assembly-copy">
-      <span class="over reveal">Assembly service</span>
-      <h2 class="h2 reveal">Bought it elsewhere? We assemble it.</h2>
-      <p class="lead reveal">Send a photo of the box or a link to the product and get a fixed price within the hour.</p>
-      <ul class="ticks reveal">
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fixed price agreed before we start</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Our own tools; we take the packaging away</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tall furniture fixed to the wall for safety</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>You pay after you have checked the work</li>
-      </ul>
+<section id="power" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Calculator</span>
+      <h2 class="h2 reveal">Which unit do you need?</h2>
+      <p class="lead reveal">Move the slider to your room size. The result is a guide; we confirm the exact power on site.</p>
     </div>
-    <div class="prices reveal d1">
-      <div><span><b>Chest of drawers</b><span>up to 6 drawers</span></span><span class="pr">from €[ ]</span></div>
-      <div><span><b>Bed</b><span>with or without storage</span></span><span class="pr">from €[ ]</span></div>
-      <div><span><b>Wardrobe</b><span>per metre, IKEA PAX included</span></span><span class="pr">from €[ ]</span></div>
-      <div><span><b>Kitchen</b><span>per metre, cabinets and fronts</span></span><span class="pr">from €[ ]</span></div>
-      <div><span><b>Desk or shelving</b><span>with wall fixing</span></span><span class="pr">from €[ ]</span></div>
-      <div><span><b>TV wall mounting</b><span>with your bracket</span></span><span class="pr">from €[ ]</span></div>
+    <div class="calc reveal">
+      <div class="calc-in">
+        <label for="area">Room size</label>
+        <div class="range-row">
+          <input type="range" id="area" min="10" max="80" step="1" value="25">
+          <output id="area-out" class="mono" for="area">25 m²</output>
+        </div>
+        <label class="check"><input type="checkbox" id="sunny"> Lots of sun, top floor or a large glazed balcony</label>
+        <label class="check"><input type="checkbox" id="kitchen"> The room is open to the kitchen</label>
+      </div>
+      <div class="calc-out" aria-live="polite">
+        <small>Recommended class</small>
+        <div class="big" id="btu">12 000 BTU</div>
+        <div class="kw" id="kw">≈ 3.5 kW</div>
+        <div class="calc-scale" id="scale"><span data-c="0">9k</span><span data-c="1">12k</span><span data-c="2">18k</span><span data-c="3">24k</span></div>
+        <p class="hint" id="calc-hint">Fits most bedrooms and kids' rooms.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="projects" data-scene="slate">
+<section id="results" class="ba-band">
   <div class="wrap">
     <div class="sec-head">
-      <span class="over reveal">Projects</span>
-      <h2 class="h2 reveal">Recent work around Varna</h2>
+      <span class="eyebrow reveal">Results</span>
+      <h2 class="h2 reveal">Before &amp; after</h2>
+      <p class="lead reveal">Drag the handle to compare. This is what sits inside a unit that has not been cleaned for two seasons.</p>
     </div>
-    <div class="filters reveal" role="group" aria-label="Filter projects">
-      <button type="button" data-f="all" aria-pressed="true">All</button>
-      <button type="button" data-f="kitchen" aria-pressed="false">Kitchens</button>
-      <button type="button" data-f="wardrobe" aria-pressed="false">Wardrobes</button>
-      <button type="button" data-f="bedroom" aria-pressed="false">Bedrooms</button>
-      <button type="button" data-f="assembly" aria-pressed="false">Assembly</button>
+    <div class="ba-grid">
+      <div class="ba reveal">
+        <div class="ba-frame" style="--pos:50%">
+          <div class="ba-layer coil-dirty"></div>
+          <div class="ba-layer ba-after coil-clean"></div>
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare heat exchanger before and after" id="ba1">
+          <span class="ba-line"></span>
+          <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        </div>
+        <h3>Heat exchanger</h3><p>Dust and grease between the fins block the airflow.</p>
+      </div>
+      <div class="ba reveal d1">
+        <div class="ba-frame" style="--pos:50%">
+          <div class="ba-layer filter-dirty"></div>
+          <div class="ba-layer ba-after filter-clean"></div>
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare filter before and after" id="ba2">
+          <span class="ba-line"></span>
+          <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        </div>
+        <h3>Air filter</h3><p>A clogged filter makes the unit work harder for the same result.</p>
+      </div>
+      <div class="ba reveal d2">
+        <div class="ba-frame" style="--pos:50%">
+          <div class="ba-layer fan-dirty"></div>
+          <div class="ba-layer ba-after fan-clean"></div>
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare fan drum before and after" id="ba3">
+          <span class="ba-line"></span>
+          <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+        </div>
+        <h3>Fan drum</h3><p>Black mould here is the source of that smell when you switch it on.</p>
+      </div>
     </div>
-    <div class="gal" id="gal">
-      <figure class="wide reveal" data-c="kitchen">[Photo]<figcaption>Corner kitchen, oak and graphite · Levski</figcaption></figure>
-      <figure class="reveal d1" data-c="wardrobe">[Photo]<figcaption>Built-in wardrobe · Chayka</figcaption></figure>
-      <figure class="reveal" data-c="bedroom">[Photo]<figcaption>Bedroom set · Briz</figcaption></figure>
-      <figure class="reveal d1" data-c="assembly">[Photo]<figcaption>IKEA PAX assembly · Center</figcaption></figure>
-      <figure class="reveal d2" data-c="bedroom">[Photo]<figcaption>Kids' room · Vazrazhdane</figcaption></figure>
-      <figure class="wide reveal" data-c="kitchen">[Photo]<figcaption>Kitchen with island · Vinitsa</figcaption></figure>
-      <figure class="reveal d1" data-c="wardrobe">[Photo]<figcaption>Sliding wardrobe · Mladost</figcaption></figure>
-    </div>
-    <p class="gal-note reveal">[Replace with the company's own project photos.]</p>
+    <p class="ba-note reveal">[Illustrations — replace with the company's own before/after photos.]</p>
   </div>
 </section>
 
-<section id="how" data-scene="sage">
+<section id="process">
   <div class="wrap">
     <div class="sec-head">
-      <span class="over reveal">How it works</span>
-      <h2 class="h2 reveal">From empty room to finished in four steps</h2>
+      <span class="eyebrow reveal">How we clean</span>
+      <h2 class="h2 reveal">Six steps, about an hour per unit</h2>
     </div>
-    <ol class="steps">
-      <li class="reveal"><span class="num">01</span><h3>Measuring</h3><p>We visit, measure and listen. Free of charge in Varna.</p></li>
-      <li class="reveal d1"><span class="num">02</span><h3>Design</h3><p>A 3D drawing and a fixed price. We adjust it until it is right.</p></li>
-      <li class="reveal d2"><span class="num">03</span><h3>Production</h3><p>Made in our workshop in about [3–4] weeks.</p></li>
-      <li class="reveal d3"><span class="num">04</span><h3>Installation</h3><p>Delivered, assembled, fixed to the wall and cleaned up.</p></li>
+    <ol class="proc">
+      <li class="reveal"><span class="n">01</span><div><h3>Protect the wall</h3><p>A cleaning bib under the unit sends the water into a bucket, not down your wall.</p></div></li>
+      <li class="reveal d1"><span class="n">02</span><div><h3>Filters &amp; cover</h3><p>We remove and wash the filters and the front panel.</p></div></li>
+      <li class="reveal d2"><span class="n">03</span><div><h3>Heat exchanger</h3><p>Active foam dissolves dust and grease between the fins.</p></div></li>
+      <li class="reveal"><span class="n">04</span><div><h3>Fan &amp; drain</h3><p>We rinse the fan drum and check that water drains freely.</p></div></li>
+      <li class="reveal d1"><span class="n">05</span><div><h3>Disinfection</h3><p>Treatment against bacteria and mould ends the smell.</p></div></li>
+      <li class="reveal d2"><span class="n">06</span><div><h3>Test &amp; photos</h3><p>We run every mode and send you before and after photos.</p></div></li>
     </ol>
-    <div class="rev" id="reviews">
+  </div>
+</section>
+
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Reviews</span>
+      <h2 class="h2 reveal">What clients say</h2>
+    </div>
+    <div class="rev">
       <figure class="reveal"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
       <figure class="reveal d1"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
       <figure class="reveal d2"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
@@ -394,48 +468,42 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   </div>
 </section>
 
-<section id="order" data-scene="graphite">
-  <div class="wrap order">
-    <div class="order-side">
-      <span class="over reveal">Contact</span>
-      <h2 class="h2 reveal">Tell us about your room</h2>
-      <p class="lead reveal">We reply within [1 hour] in working time. The measuring visit and the quote are free.</p>
+<section id="book" class="book-band">
+  <div class="wrap book" id="contact">
+    <div class="book-side">
+      <span class="eyebrow reveal">Booking</span>
+      <h2 class="h2 reveal">Book a visit</h2>
+      <p class="lead reveal">Pick a service and a day that suits you. We call back to confirm the exact time.</p>
       <div class="clist reveal">
-        <div><span>Phone · Viber</span><b class="mono" style="user-select:all">[+359 88 000 0000]</b></div>
-        <div><span>Hours</span><b>[Mon–Sat 8:00–19:00]</b></div>
-        <div><span>Showroom</span><b>[1 Example St, Varna]</b><a href="https://maps.google.com/?q=Varna" target="_blank" rel="noopener">Open in Google Maps</a></div>
+        <div><span>Phone</span><b class="mono" style="user-select:all">[+359 88 000 0000]</b></div>
+        <div><span>Hours</span><b>[Mon–Fri 9:00–18:00 · Sat 9:00–14:00]</b></div>
+        <div><span>Address</span><b>[1 Example St, Varna]</b><a href="https://maps.google.com/?q=Varna" target="_blank" rel="noopener">Open in Google Maps</a></div>
+        <div><span>Areas</span><b>Varna, Asparuhovo, Vladislavovo, Vinitsa, Galata, St. Konstantin</b></div>
       </div>
     </div>
 
     <form class="card reveal d1" id="form" novalidate>
-      <div class="field full">
-        <span class="legend" id="need-l">I need</span>
-        <div class="toggle" role="group" aria-labelledby="need-l">
-          <button type="button" data-need="new" aria-pressed="true">New furniture</button>
-          <button type="button" data-need="assembly" aria-pressed="false">Assembly only</button>
-        </div>
-      </div>
-      <div class="field full">
-        <span class="legend" id="what-l">What is it?</span>
-        <div class="pick" role="group" aria-labelledby="what-l">
-          <label><input type="checkbox" id="w-kitchen" value="Kitchen">Kitchen</label>
-          <label><input type="checkbox" id="w-wardrobe" value="Wardrobe" checked>Wardrobe</label>
-          <label><input type="checkbox" id="w-bed" value="Bedroom">Bedroom</label>
-          <label><input type="checkbox" id="w-kids" value="Kids' room">Kids' room</label>
-          <label><input type="checkbox" id="w-other" value="Other">Other</label>
-        </div>
-      </div>
-      <div class="field"><label for="f-name">Name</label><input id="f-name" autocomplete="name"></div>
-      <div class="field"><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel" placeholder="+359 …"></div>
-      <div class="field"><label for="f-area">District</label><input id="f-area" placeholder="e.g. Chayka"></div>
+      <div class="field"><label for="f-name">Name</label><input id="f-name" autocomplete="name" required></div>
+      <div class="field"><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel" placeholder="+359 …" required></div>
+      <div class="field full"><label for="f-svc">Service</label>
+        <select id="f-svc">
+          <option>Cleaning &amp; service</option>
+          <option>Installation</option>
+          <option>Diagnostics &amp; repair</option>
+          <option>Refrigerant refill</option>
+          <option>Removal &amp; relocation</option>
+          <option>New unit advice</option>
+        </select></div>
+      <div class="field"><label for="f-units">Number of units</label><input id="f-units" type="number" min="1" max="20" value="1"></div>
+      <div class="field"><label for="f-area">District</label><input id="f-area" placeholder="e.g. Levski"></div>
       <div class="field"><label for="f-date">Preferred date</label><input id="f-date" type="date"></div>
-      <div class="field full"><label for="f-photo">Photo of the room or the box (optional)</label><input id="f-photo" type="file" accept="image/*"></div>
-      <div class="field full"><label for="f-note">Anything else?</label><textarea id="f-note" placeholder="Sizes, colours, a link to the product…"></textarea></div>
+      <div class="field"><label for="f-time">Preferred time</label><select id="f-time"></select></div>
+      <div class="field full"><label for="f-note">Note (optional)</label><textarea id="f-note" placeholder="Brand, floor, what is wrong…"></textarea></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Leave empty</label><input id="f-hp" tabindex="-1" autocomplete="off"></div>
       <p class="form-err" id="form-err" role="alert"></p>
       <div class="form-foot">
-        <small>We only use your number to send the quote.</small>
-        <button class="btn btn-primary" type="submit">Send request</button>
+        <small>We only use your phone number to confirm the visit.</small>
+        <button class="btn btn-primary" type="submit">Request appointment</button>
       </div>
     </form>
   </div>
@@ -450,22 +518,60 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 </footer>
 
 <div class="mbar">
-  <a class="btn btn-ghost" href="tel:+359880000000">Call</a>
-  <a class="btn btn-primary" href="#order">Free measuring</a>
+  <a class="btn btn-outline" href="tel:+359880000000">Call</a>
+  <a class="btn btn-primary" href="#book">Book</a>
 </div>
 
 <script>
 (function(){
-  var root=document.documentElement;root.classList.add('js');
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root=document.documentElement;
+  root.classList.add('js');
 
-  /* background follows the section in the middle of the screen */
-  var scenes=document.querySelectorAll('[data-scene]');
-  function setScene(s){if(s==='linen')delete root.dataset.scene;else root.dataset.scene=s;}
-  if('IntersectionObserver' in window){
-    var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setScene(e.target.dataset.scene);});},{rootMargin:'-48% 0px -48% 0px'});
-    scenes.forEach(function(s){so.observe(s);});
+  /* day / night: day = cooling (cold air), night = heating (warm air) */
+  var sunIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  var moonIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  function isNight(){
+    if(root.dataset.theme==='dark')return true;
+    if(root.dataset.theme==='light')return false;
+    return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;
   }
+  var sky=document.getElementById('sky');
+  function paintSky(){
+    var n=isNight();
+    sky.innerHTML=(n?moonIcon:sunIcon)+'<span>'+(n?'Night':'Day')+'</span>';
+    document.getElementById('unit-temp').textContent=n?'24°':'20°';
+    document.getElementById('mode-txt').textContent=n?'Night · heating 24°':'Day · cooling 20°';
+  }
+  function flip(){root.dataset.theme=isNight()?'light':'dark';paintSky();}
+  sky.addEventListener('click',flip);
+  if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paintSky);
+  new MutationObserver(paintSky).observe(root,{attributes:true,attributeFilter:['data-theme']});
+  paintSky();
+
+  /* background airflow */
+  var cv=document.getElementById('air'),ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2),t=0;
+  var lines=[];for(var i=0;i<12;i++)lines.push({y:.08+i*.075,a:8+Math.random()*16,f:.004+Math.random()*.004,s:.25+Math.random()*.35,p:Math.random()*6.28});
+  function size(){var r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function hex(c){c=c.replace('#','');return [parseInt(c.slice(0,2),16),parseInt(c.slice(2,4),16),parseInt(c.slice(4,6),16)];}
+  var cur=null;
+  function draw(){
+    var col=getComputedStyle(root).getPropertyValue('--air').trim()||'#4FA8E8';
+    ctx.clearRect(0,0,W,H);ctx.strokeStyle=col;ctx.lineWidth=1.2;ctx.lineCap='round';
+    lines.forEach(function(l){
+      var dir=isNight()?-1:1;
+      ctx.globalAlpha=.28;ctx.beginPath();
+      for(var x=-20;x<=W+20;x+=14){
+        var y=l.y*H+Math.sin(x*l.f+l.p+t*l.s*dir)*l.a;
+        if(x===-20)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      }
+      ctx.setLineDash([60,40]);ctx.lineDashOffset=-t*40*l.s*dir;ctx.stroke();
+    });
+    ctx.globalAlpha=1;
+  }
+  function loop(){t+=.016;draw();if(!reduce)requestAnimationFrame(loop);}
+  size();window.addEventListener('resize',function(){size();draw();});loop();
 
   /* scroll reveal */
   var els=document.querySelectorAll('.reveal:not(.in)');
@@ -474,69 +580,49 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     els.forEach(function(el){io.observe(el);});
   }else{els.forEach(function(el){el.classList.add('in');});}
 
-  /* project filters */
-  var fb=document.querySelectorAll('.filters button'),figs=document.querySelectorAll('#gal figure');
-  fb.forEach(function(b){b.addEventListener('click',function(){
-    var f=b.dataset.f;fb.forEach(function(x){x.setAttribute('aria-pressed',x===b);});
-    figs.forEach(function(g){g.hidden=!(f==='all'||g.dataset.c===f);g.classList.add('in');});
-  });});
+  /* power calculator: ~100 W cooling per m², +15% sunny, +15% open kitchen (rule of thumb) */
+  var classes=[{btu:'9 000',kw:2.6,hint:'Fits a small bedroom or a home office.'},{btu:'12 000',kw:3.5,hint:'Fits most bedrooms and kids’ rooms.'},{btu:'18 000',kw:5.0,hint:'For a living room or a large room.'},{btu:'24 000',kw:7.0,hint:'For a large living room or one open to the kitchen.'}];
+  var area=document.getElementById('area'),sunny=document.getElementById('sunny'),kitchen=document.getElementById('kitchen');
+  function calc(){
+    var m=+area.value;
+    document.getElementById('area-out').textContent=m+' m²';
+    var need=m*0.1*(sunny.checked?1.15:1)*(kitchen.checked?1.15:1);
+    var i=-1;for(var j=0;j<classes.length;j++){if(classes[j].kw>=need){i=j;break;}}
+    var over=i===-1;if(over)i=3;
+    var c=classes[i];
+    document.getElementById('btu').textContent=over?'24 000+ BTU':c.btu+' BTU';
+    document.getElementById('kw').textContent='Needed ≈ '+need.toFixed(1)+' kW · unit ≈ '+c.kw.toFixed(1)+' kW';
+    document.getElementById('calc-hint').textContent=over?'We recommend a multi-split or two units. Call us for a free visit.':c.hint;
+    document.querySelectorAll('#scale span').forEach(function(s){s.classList.toggle('on',+s.dataset.c===i);});
+  }
+  [area,sunny,kitchen].forEach(function(el){el.addEventListener('input',calc);});
+  calc();
 
-  /* form */
-  var need='new',nb=document.querySelectorAll('[data-need]');
-  nb.forEach(function(b){b.addEventListener('click',function(){need=b.dataset.need;nb.forEach(function(x){x.setAttribute('aria-pressed',x===b);});});});
+  /* before / after sliders */
+  document.querySelectorAll('.ba-range').forEach(function(r){
+    var f=r.closest('.ba-frame');
+    r.addEventListener('input',function(){f.style.setProperty('--pos',r.value+'%');});
+  });
+
+  /* booking form */
+  var sel=document.getElementById('f-time');
+  for(var h=9;h<18;h++){['00','30'].forEach(function(m){var o=document.createElement('option');o.textContent=(h<10?'0':'')+h+':'+m;sel.appendChild(o);});}
   var d=document.getElementById('f-date'),now=new Date();
-  d.min=now.toISOString().slice(0,10);d.value=new Date(now.getTime()+2*864e5).toISOString().slice(0,10);
+  d.min=now.toISOString().slice(0,10);d.value=new Date(now.getTime()+864e5).toISOString().slice(0,10);
   var form=document.getElementById('form');
-  var sendBtn=form.querySelector('button[type="submit"]');
-
-  /* shrink the photo in the browser so it uploads fast (max 1600 px, JPEG) */
-  function photoData(file){
-    return new Promise(function(resolve){
-      if(!file||!/^image\//.test(file.type))return resolve(null);
-      var img=new Image(),url=URL.createObjectURL(file);
-      img.onload=function(){
-        var s=Math.min(1,1600/Math.max(img.width,img.height));
-        var c=document.createElement('canvas');c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);
-        c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
-        resolve(c.toDataURL('image/jpeg',.8));
-      };
-      img.onerror=function(){URL.revokeObjectURL(url);resolve(null);};
-      img.src=url;
-    });
-  }
-  function showDone(title,msg){
-    form.innerHTML='<div class="done"><h3></h3><p></p></div>';
-    form.querySelector('.done h3').textContent=title;form.querySelector('.done p').textContent=msg;
-  }
-
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var err=document.getElementById('form-err');
-    var hp=document.getElementById('f-hp').value;
+    if(document.getElementById('f-hp').value)return;
     var name=document.getElementById('f-name').value.trim();
-    var phone=document.getElementById('f-phone').value.trim();
-    var items=Array.prototype.map.call(form.querySelectorAll('.pick input:checked'),function(i){return i.value;});
-    if(!items.length){err.textContent='Choose at least one item so we know what to quote.';return;}
-    if(!name){err.textContent='Please add your name.';document.getElementById('f-name').focus();return;}
-    if(phone.replace(/\D/g,'').length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
+    var phone=document.getElementById('f-phone').value.replace(/[^\d+]/g,'');
+    if(!name){err.textContent='Please enter your name so we know who to ask for.';document.getElementById('f-name').focus();return;}
+    if(phone.length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
     err.textContent='';
-    sendBtn.disabled=true;sendBtn.textContent='Sending…';
-
-    photoData(document.getElementById('f-photo').files[0]).then(function(photo){
-      var data={
-        need:need==='new'?'New furniture':'Assembly only',items:items,name:name,phone:phone,
-        area:document.getElementById('f-area').value.trim(),date:document.getElementById('f-date').value,
-        note:document.getElementById('f-note').value.trim(),photo:photo,company:hp
-      };
-      return fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    }).then(function(r){
-      if(r.ok){showDone('Thank you','We have your request and will call you within [1 hour] in working time.');return;}
-      if(r.status===404){showDone('Thank you (demo)','On the live site this request goes straight to the company’s WhatsApp or Telegram.');return;}
-      throw new Error('send failed');
-    }).catch(function(){
-      sendBtn.disabled=false;sendBtn.textContent='Send request';
-      err.textContent='We could not send the request. Please call us at [+359 88 000 0000] or try again.';
-    });
+    /* REAL SITE: send the request here (Formspree or a Telegram bot) */
+    var svc=document.getElementById('f-svc').value,units=parseInt(document.getElementById('f-units').value,10)||1;
+    form.innerHTML='<div class="done"><h3>Request received</h3><p></p></div>';
+    form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
   });
 })();
 </script>

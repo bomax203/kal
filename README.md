@@ -1,42 +1,10 @@
-# Лендинг мебельной фирмы — как подключить отправку заявок
+# Varna AC Landing
 
-Посетитель нажимает «Send request», страница **никуда не переходит**, а заявка приходит владельцу в Telegram и/или WhatsApp.
+Landing page for an air-conditioning company in Varna (English draft; Bulgarian version to follow).
 
-## Что в папке
+- Day/night mode with cool/warm airflow
+- Power calculator (BTU)
+- Before/after gallery
+- Booking form (sending not connected yet)
 
-- `index.html` — сайт
-- `netlify/functions/lead.mjs` — серверная функция, которая принимает форму и пересылает её
-- `netlify.toml` — настройки для Netlify
-
-## Шаг 1. Залить на Netlify
-
-1. Зарегистрируйся на netlify.com (бесплатно).
-2. Add new site → Deploy manually → перетащи всю папку целиком.
-   Лучше через GitHub: загрузи папку в репозиторий и подключи его к Netlify — тогда каждое изменение публикуется само.
-
-## Шаг 2. Telegram (рекомендуем — бесплатно и официально)
-
-1. В Telegram открой **@BotFather** → `/newbot` → придумай имя → получишь **токен** (строка вида `123456:ABC...`).
-2. Владелец фирмы пишет своему новому боту любое сообщение (например «start»).
-3. Открой в браузере `https://api.telegram.org/bot<ТОКЕН>/getUpdates` и найди `"chat":{"id":...}` — это **chat id**.
-4. В Netlify: Site configuration → Environment variables → добавь:
-   - `TG_TOKEN` = токен
-   - `TG_CHAT_ID` = chat id
-5. Deploys → Trigger deploy, чтобы переменные подхватились.
-
-Фото из формы тоже приходит в Telegram.
-
-## Шаг 3. WhatsApp (по желанию)
-
-Бесплатный CallMeBot по своим правилам — **только для личного использования**. Для своих тестов и демо можно, для сайта клиента — нет.
-
-Для теста:
-1. Сохрани номер **+34 644 20 47 56**, напиши ему в WhatsApp: `I allow callmebot to send me messages`.
-2. Получишь APIKEY.
-3. В Netlify добавь `WA_PHONE` (например `+359880000000`) и `WA_APIKEY`.
-
-Для реального клиента с WhatsApp нужен платный сервис (TextMeBot, Green-API, Twilio) или официальный WhatsApp Business API. Это несколько евро в месяц — закладывай в абонплату.
-
-## Как проверить
-
-Открой сайт, отправь тестовую заявку со своим номером. Если не пришло — Netlify → Logs → Functions → `lead`, там видна ошибка.
+Open `index.html` in a browser, or deploy the folder to Netlify / Cloudflare Pages.
