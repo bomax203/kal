@@ -8,14 +8,12 @@
 //   TG_CHAT_ID  – Telegram chat id (optional)
 //
 // Storage: Netlify Blobs, store "leads" (built in, no setup).
-//   lead/<timestamp>-<id>  – every request
-//   phone/<digits>         – last time this phone sent a request (for duplicate check)
+//   lead/<timestamp>-<id>     – every request
+//   slot/<YYYY-MM-DD>/<HH:MM> – booked time slot (one client per slot)
 
 import { getStore } from "@netlify/blobs";
 
 export const config = { path: "/api/lead" };
-
-const DUPLICATE_WINDOW_MS = 24 * 60 * 60 * 1000; // same phone within 24 h = duplicate
 
 const clean = (v, max) => String(v ?? "").replace(/[<>]/g, "").trim().slice(0, max);
 const json = (body, status = 200) =>
@@ -71,17 +69,29 @@ export default async (req) => {
   const digits = phone.replace(/\D/g, "");
   if (!name || digits.length < 9) return json({ ok: false, error: "invalid" }, 400);
 
+  const date = clean(d.date, 10);
+  const time = clean(d.time, 5);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
+    return json({ ok: false, error: "date/time" }, 400);
+  }
+
   const store = getStore({ name: "leads", consistency: "strong" });
   const now = Date.now();
+  const phone9 = digits.slice(-9); // +359 88… and 088… count as the same number
 
-  // duplicate check: same phone number within the window
-  // (compare the last 9 digits so +359 88… and 088… count as the same number)
-  const phoneKey = `phone/${digits.slice(-9)}`;
-  const last = await store.get(phoneKey, { type: "json" }).catch(() => null);
-  if (last && now - last.at < DUPLICATE_WINDOW_MS) {
-    console.log(`lead: duplicate from …${digits.slice(-4)}, skipped`);
-    return json({ ok: true, duplicate: true });
+  // one client per time slot
+  const slotKey = `slot/${date}/${time}`;
+  const slot = await store.get(slotKey, { type: "json" }).catch(() => null);
+  if (slot) {
+    if (slot.phone9 === phone9) {
+      console.log(`lead: same client re-sent ${date} ${time}, skipped`);
+      return json({ ok: true, duplicate: true });
+    }
+    console.log(`lead: slot ${date} ${time} already taken`);
+    return json({ ok: false, error: "slot_taken" }, 409);
   }
+  // reserve the slot before sending, so a second request a moment later sees it as taken
+  await store.setJSON(slotKey, { phone9, at: now });
 
   const lead = {
     at: new Date(now).toISOString(),
@@ -90,8 +100,8 @@ export default async (req) => {
     name,
     phone,
     area: clean(d.area, 60),
-    date: clean(d.date, 20),
-    time: clean(d.time, 10),
+    date,
+    time,
     note: clean(d.note, 800),
   };
 
@@ -111,7 +121,6 @@ export default async (req) => {
   // save the request even if delivery failed, so nothing is lost
   const id = Math.random().toString(36).slice(2, 8);
   await store.setJSON(`lead/${now}-${id}`, lead);
-  if (result.ok) await store.setJSON(phoneKey, { at: now });
 
   return result.ok ? json({ ok: true }) : json({ ok: false, error: "delivery failed", saved: true }, 502);
 };

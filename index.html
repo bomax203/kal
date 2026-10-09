@@ -606,18 +606,48 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
   /* booking form */
   var sel=document.getElementById('f-time');
-  for(var h=9;h<18;h++){['00','30'].forEach(function(m){var o=document.createElement('option');o.textContent=(h<10?'0':'')+h+':'+m;sel.appendChild(o);});}
-  var d=document.getElementById('f-date'),now=new Date();
-  d.min=now.toISOString().slice(0,10);d.value=new Date(now.getTime()+864e5).toISOString().slice(0,10);
+  var d=document.getElementById('f-date');
+  var err=document.getElementById('form-err');
+  function pad(n){return (n<10?'0':'')+n;}
+  function ymd(t){return t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());}
+  var SLOTS=[];for(var h=9;h<18;h++){SLOTS.push(pad(h)+':00',pad(h)+':30');}
+  SLOTS.forEach(function(s){var o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+  var today=new Date();d.min=ymd(today);d.value=ymd(new Date(today.getTime()+864e5));
+
+  /* grey out booked times and times already past today */
+  function paintSlots(taken){
+    var now=new Date(),isToday=d.value===ymd(now),nowHM=pad(now.getHours())+':'+pad(now.getMinutes());
+    var firstFree=null;
+    Array.prototype.forEach.call(sel.options,function(o){
+      var booked=taken.indexOf(o.value)!==-1,past=isToday&&o.value<=nowHM;
+      o.disabled=booked||past;
+      o.textContent=o.value+(booked?' — booked':past?' — passed':'');
+      if(!o.disabled&&firstFree===null)firstFree=o.value;
+    });
+    if(sel.selectedOptions[0]&&sel.selectedOptions[0].disabled){sel.value=firstFree||'';}
+    if(firstFree===null)err.textContent='No free times left on this day. Please choose another date.';
+    else if(/No free times/.test(err.textContent))err.textContent='';
+  }
+  function loadSlots(){
+    paintSlots([]);
+    if(!d.value)return;
+    fetch('/api/slots?date='+encodeURIComponent(d.value))
+      .then(function(r){return r.ok?r.json():{taken:[]};})
+      .then(function(res){paintSlots(res.taken||[]);})
+      .catch(function(){});
+  }
+  d.addEventListener('change',loadSlots);
+  loadSlots();
+
   var form=document.getElementById('form');
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var err=document.getElementById('form-err');
     if(document.getElementById('f-hp').value)return;
     var name=document.getElementById('f-name').value.trim();
     var phone=document.getElementById('f-phone').value.replace(/[^\d+]/g,'');
     if(!name){err.textContent='Please enter your name so we know who to ask for.';document.getElementById('f-name').focus();return;}
     if(phone.length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
+    if(!d.value||!sel.value||sel.selectedOptions[0].disabled){err.textContent='Please choose a free date and time.';sel.focus();return;}
     err.textContent='';
     var btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Sending…';
     var svc=document.getElementById('f-svc').value,units=parseInt(document.getElementById('f-units').value,10)||1;
@@ -628,17 +658,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     };
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){
+        if(r.status===409)return {taken:true};
         if(!r.ok)throw new Error('send failed');
         return r.json().catch(function(){return {};});
       })
       .then(function(res){
+        if(res.taken){
+          btn.disabled=false;btn.textContent='Request appointment';
+          err.textContent='Sorry, '+data.time+' on '+data.date+' was just booked by someone else. Please choose another time.';
+          loadSlots();return;
+        }
         form.innerHTML='<div class="done"><h3></h3><p></p></div>';
         if(res.duplicate){
-          form.querySelector('.done h3').textContent='We already have your request';
-          form.querySelector('.done p').textContent='You sent a request from this number earlier today. We will call you soon — no need to send it again.';
+          form.querySelector('.done h3').textContent='You are already booked';
+          form.querySelector('.done p').textContent='We already have your request for '+data.date+' at '+data.time+'. No need to send it again.';
         }else{
           form.querySelector('.done h3').textContent='Request received';
-          form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
+          form.querySelector('.done p').textContent=svc+' × '+units+' on '+data.date+' at '+data.time+'. We will call you within [1 hour] during working hours to confirm.';
         }
       })
       .catch(function(){
