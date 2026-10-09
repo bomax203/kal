@@ -231,6 +231,40 @@ form.card{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;ba
 .field input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1;width:20px;height:20px;background:var(--muted);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/20px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E") center/20px no-repeat}
 .field input[type="date"]::-webkit-calendar-picker-indicator:hover{background:var(--accent)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* booking calendar */
+.cal-lbl{font:500 12px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.cal{background:var(--surface);border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:10px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cal-head b{font:600 18px/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
+.cal-nav{width:44px;height:44px;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:22px;cursor:pointer}
+.cal-nav:disabled{opacity:.35;cursor:default}
+.cal-dow,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-dow span{text-align:center;font:500 11px/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-block:4px}
+.day{position:relative;min-height:44px;border:1px solid transparent;background:var(--bg);color:var(--fg);font:500 15px/1 var(--f-mono);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.day::after{content:"";position:absolute;bottom:6px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%}
+.day.free::after{background:#2E9E6A}
+.day.few::after{background:#E0A23A}
+.day.full{color:var(--muted);text-decoration:line-through;cursor:not-allowed}
+.day.full::after{background:#C9533E}
+.day.off{background:transparent;color:var(--muted);opacity:.45;cursor:not-allowed}
+.day.today{border-color:var(--line)}
+.day[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.day[aria-pressed="true"]::after{background:var(--on-accent)}
+.day:not(:disabled):hover{border-color:var(--accent)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px}
+.lg{width:8px;height:8px;border-radius:50%;display:inline-block}
+.lg-free{background:#2E9E6A}.lg-few{background:#E0A23A}.lg-full{background:#C9533E}.lg-off{background:var(--line)}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px}
+.slot{min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:500 15px/1 var(--f-mono);cursor:pointer}
+.slot:disabled{background:transparent;color:var(--muted);text-decoration:line-through;opacity:.6;cursor:not-allowed}
+.slot[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.slot:not(:disabled):hover{border-color:var(--accent)}
+.times-empty{grid-column:1/-1;color:var(--muted);font-size:14px;margin:0}
+.pick-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+.sel-sum{margin:0;font-weight:600}
+.link-btn{min-height:44px;background:none;border:0;padding:0;color:var(--accent);font:600 14px/1 var(--f-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .form-err{grid-column:1/-1;color:var(--accent);font-weight:600;font-size:14px;min-height:1.4em}
 .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
 .form-foot small{color:var(--muted);font-size:13px;max-width:38ch}
@@ -496,8 +530,24 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
         </select></div>
       <div class="field"><label for="f-units">Number of units</label><input id="f-units" type="number" min="1" max="20" value="1"></div>
       <div class="field"><label for="f-area">District</label><input id="f-area" placeholder="e.g. Levski"></div>
-      <div class="field"><label for="f-date">Preferred date</label><input id="f-date" type="date"></div>
-      <div class="field"><label for="f-time">Preferred time</label><select id="f-time"></select></div>
+      <div class="field full">
+        <span class="cal-lbl" id="cal-l">Choose a day and time</span>
+        <div class="cal" role="group" aria-labelledby="cal-l">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button>
+            <b id="cal-title" aria-live="polite"></b>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
+          </div>
+          <div class="cal-dow" aria-hidden="true"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-legend" aria-hidden="true"><span><i class="lg lg-free"></i>Free</span><span><i class="lg lg-few"></i>Few left</span><span><i class="lg lg-full"></i>Fully booked</span><span><i class="lg lg-off"></i>Closed</span></div>
+        </div>
+        <div class="times" id="times" role="group" aria-label="Available times"></div>
+        <div class="pick-row">
+          <p class="sel-sum" id="sel-sum" aria-live="polite"></p>
+          <button type="button" class="link-btn" id="nearest">Nearest free time</button>
+        </div>
+      </div>
       <div class="field full"><label for="f-note">Note (optional)</label><textarea id="f-note" placeholder="Brand, floor, what is wrong…"></textarea></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Leave empty</label><input id="f-hp" tabindex="-1" autocomplete="off"></div>
       <p class="form-err" id="form-err" role="alert"></p>
@@ -604,40 +654,108 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     r.addEventListener('input',function(){f.style.setProperty('--pos',r.value+'%');});
   });
 
-  /* booking form */
-  var sel=document.getElementById('f-time');
-  var d=document.getElementById('f-date');
+  /* booking calendar */
   var err=document.getElementById('form-err');
   function pad(n){return (n<10?'0':'')+n;}
   function ymd(t){return t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());}
-  var SLOTS=[];for(var h=9;h<18;h++){SLOTS.push(pad(h)+':00',pad(h)+':30');}
-  SLOTS.forEach(function(s){var o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
-  var today=new Date();d.min=ymd(today);d.value=ymd(new Date(today.getTime()+864e5));
+  function range(from,to){var a=[];for(var h=from;h<to;h++){a.push(pad(h)+':00',pad(h)+':30');}return a;}
+  /* working hours: Mon–Fri 9:00–18:00, Sat 9:00–14:00, Sunday closed (last start 30 min before closing) */
+  var HOURS={0:[],1:range(9,18),2:range(9,18),3:range(9,18),4:range(9,18),5:range(9,18),6:range(9,14)};
+  var DAYS_AHEAD=60;
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  /* grey out booked times and times already past today */
-  function paintSlots(taken){
-    var now=new Date(),isToday=d.value===ymd(now),nowHM=pad(now.getHours())+':'+pad(now.getMinutes());
-    var firstFree=null;
-    Array.prototype.forEach.call(sel.options,function(o){
-      var booked=taken.indexOf(o.value)!==-1,past=isToday&&o.value<=nowHM;
-      o.disabled=booked||past;
-      o.textContent=o.value+(booked?' — booked':past?' — passed':'');
-      if(!o.disabled&&firstFree===null)firstFree=o.value;
+  var todayD=new Date();todayD.setHours(0,0,0,0);
+  var lastD=new Date(todayD.getTime());lastD.setDate(lastD.getDate()+DAYS_AHEAD);
+  var booked={};                   /* {"2026-10-12":["16:00"]} */
+  var selDate=null,selTime=null;
+  var view=new Date(todayD.getFullYear(),todayD.getMonth(),1);
+  var gridEl=document.getElementById('cal-grid'),timesEl=document.getElementById('times');
+  var sumEl=document.getElementById('sel-sum'),titleEl=document.getElementById('cal-title');
+  var prevBtn=document.getElementById('cal-prev'),nextBtn=document.getElementById('cal-next');
+
+  function parse(s){var p=s.split('-');return new Date(+p[0],p[1]-1,+p[2]);}
+  function nice(s){var t=parse(s);return WD[t.getDay()]+' '+t.getDate()+' '+MONTHS[t.getMonth()].slice(0,3);}
+  function freeTimes(s){
+    var t=parse(s);if(t<todayD||t>lastD)return [];
+    var now=new Date(),isToday=s===ymd(now),nowHM=pad(now.getHours())+':'+pad(now.getMinutes());
+    var taken=booked[s]||[];
+    return HOURS[t.getDay()].filter(function(h){return taken.indexOf(h)===-1&&!(isToday&&h<=nowHM);});
+  }
+  function status(s){
+    var t=parse(s);
+    if(t<todayD||t>lastD||!HOURS[t.getDay()].length)return 'off';
+    var n=freeTimes(s).length;
+    if(n===0)return 'full';
+    return n<=3?'few':'free';
+  }
+
+  function renderCal(){
+    titleEl.textContent=MONTHS[view.getMonth()]+' '+view.getFullYear();
+    prevBtn.disabled=view<=new Date(todayD.getFullYear(),todayD.getMonth(),1);
+    nextBtn.disabled=new Date(view.getFullYear(),view.getMonth()+1,1)>lastD;
+    gridEl.innerHTML='';
+    var lead=(view.getDay()+6)%7;              /* Monday-first grid */
+    for(var i=0;i<lead;i++){gridEl.appendChild(document.createElement('span'));}
+    var days=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+    for(var dd=1;dd<=days;dd++){
+      var s=ymd(new Date(view.getFullYear(),view.getMonth(),dd)),st=status(s);
+      var b=document.createElement('button');
+      b.type='button';b.className='day '+st+(s===ymd(todayD)?' today':'');b.textContent=dd;b.dataset.d=s;
+      b.disabled=st==='off'||st==='full';
+      b.setAttribute('aria-pressed',s===selDate?'true':'false');
+      var n=freeTimes(s).length;
+      b.setAttribute('aria-label',nice(s)+(st==='off'?', closed':st==='full'?', fully booked':', '+n+' free times'));
+      b.addEventListener('click',function(){pickDate(this.dataset.d);});
+      gridEl.appendChild(b);
+    }
+  }
+  function renderTimes(){
+    timesEl.innerHTML='';
+    if(!selDate){timesEl.innerHTML='<p class="times-empty">Pick a day to see free times.</p>';return;}
+    var t=parse(selDate),all=HOURS[t.getDay()],free=freeTimes(selDate);
+    all.forEach(function(h){
+      var b=document.createElement('button');
+      b.type='button';b.className='slot';b.textContent=h;b.dataset.t=h;
+      var ok=free.indexOf(h)!==-1;b.disabled=!ok;
+      if(!ok)b.title=(booked[selDate]||[]).indexOf(h)!==-1?'Booked':'Not available';
+      b.setAttribute('aria-pressed',h===selTime?'true':'false');
+      b.addEventListener('click',function(){selTime=this.dataset.t;renderTimes();renderSum();});
+      timesEl.appendChild(b);
     });
-    if(sel.selectedOptions[0]&&sel.selectedOptions[0].disabled){sel.value=firstFree||'';}
-    if(firstFree===null)err.textContent='No free times left on this day. Please choose another date.';
-    else if(/No free times/.test(err.textContent))err.textContent='';
   }
-  function loadSlots(){
-    paintSlots([]);
-    if(!d.value)return;
-    fetch('/api/slots?date='+encodeURIComponent(d.value))
-      .then(function(r){return r.ok?r.json():{taken:[]};})
-      .then(function(res){paintSlots(res.taken||[]);})
-      .catch(function(){});
+  function renderSum(){
+    sumEl.textContent=selDate&&selTime?'Selected: '+nice(selDate)+' at '+selTime:selDate?'Now pick a time':'';
   }
-  d.addEventListener('change',loadSlots);
-  loadSlots();
+  function pickDate(s){
+    selDate=s;
+    if(selTime&&freeTimes(s).indexOf(selTime)===-1)selTime=null;
+    renderCal();renderTimes();renderSum();
+  }
+  function nearest(){
+    for(var i=0;i<=DAYS_AHEAD;i++){
+      var t=new Date(todayD.getTime());t.setDate(t.getDate()+i);
+      var s=ymd(t),f=freeTimes(s);
+      if(f.length){selDate=s;selTime=f[0];view=new Date(t.getFullYear(),t.getMonth(),1);renderCal();renderTimes();renderSum();return;}
+    }
+    err.textContent='No free times in the next '+DAYS_AHEAD+' days. Please call us.';
+  }
+  prevBtn.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);renderCal();});
+  nextBtn.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);renderCal();});
+  document.getElementById('nearest').addEventListener('click',nearest);
+
+  function loadBooked(then){
+    fetch('/api/slots?from='+ymd(todayD)+'&to='+ymd(lastD))
+      .then(function(r){return r.ok?r.json():{booked:{}};})
+      .then(function(res){booked=res.booked||{};})
+      .catch(function(){})
+      .then(function(){
+        if(selDate&&selTime&&freeTimes(selDate).indexOf(selTime)===-1)selTime=null;
+        renderCal();renderTimes();renderSum();if(then)then();
+      });
+  }
+  renderCal();renderTimes();
+  loadBooked(function(){if(!selDate)nearest();});
 
   var form=document.getElementById('form');
   form.addEventListener('submit',function(e){
@@ -647,14 +765,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     var phone=document.getElementById('f-phone').value.replace(/[^\d+]/g,'');
     if(!name){err.textContent='Please enter your name so we know who to ask for.';document.getElementById('f-name').focus();return;}
     if(phone.length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
-    if(!d.value||!sel.value||sel.selectedOptions[0].disabled){err.textContent='Please choose a free date and time.';sel.focus();return;}
+    if(!selDate||!selTime){err.textContent='Please choose a free day and time in the calendar.';timesEl.scrollIntoView({block:'center'});return;}
     err.textContent='';
     var btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Sending…';
     var svc=document.getElementById('f-svc').value,units=parseInt(document.getElementById('f-units').value,10)||1;
     var data={
       service:svc,units:units,name:name,phone:document.getElementById('f-phone').value.trim(),
-      area:document.getElementById('f-area').value.trim(),date:document.getElementById('f-date').value,
-      time:document.getElementById('f-time').value,note:document.getElementById('f-note').value.trim(),company:''
+      area:document.getElementById('f-area').value.trim(),date:selDate,
+      time:selTime,note:document.getElementById('f-note').value.trim(),company:''
     };
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){
@@ -665,16 +783,16 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
       .then(function(res){
         if(res.taken){
           btn.disabled=false;btn.textContent='Request appointment';
-          err.textContent='Sorry, '+data.time+' on '+data.date+' was just booked by someone else. Please choose another time.';
-          loadSlots();return;
+          err.textContent='Sorry, '+data.time+' on '+nice(data.date)+' was just booked by someone else. Please choose another time.';
+          selTime=null;loadBooked();return;
         }
         form.innerHTML='<div class="done"><h3></h3><p></p></div>';
         if(res.duplicate){
           form.querySelector('.done h3').textContent='You are already booked';
-          form.querySelector('.done p').textContent='We already have your request for '+data.date+' at '+data.time+'. No need to send it again.';
+          form.querySelector('.done p').textContent='We already have your request for '+nice(data.date)+' at '+data.time+'. No need to send it again.';
         }else{
           form.querySelector('.done h3').textContent='Request received';
-          form.querySelector('.done p').textContent=svc+' × '+units+' on '+data.date+' at '+data.time+'. We will call you within [1 hour] during working hours to confirm.';
+          form.querySelector('.done p').textContent=svc+' × '+units+' on '+nice(data.date)+' at '+data.time+'. We will call you within [1 hour] during working hours to confirm.';
         }
       })
       .catch(function(){

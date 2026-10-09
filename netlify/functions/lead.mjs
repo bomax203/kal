@@ -15,6 +15,34 @@ import { getStore } from "@netlify/blobs";
 
 export const config = { path: "/api/lead" };
 
+// Working hours — keep in sync with HOURS in index.html.
+// Mon–Fri 9:00–18:00, Sat 9:00–14:00, Sunday closed; slots every 30 min, last start 30 min before closing.
+const OPEN = { 0: null, 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 18], 5: [9, 18], 6: [9, 14] };
+const DAYS_AHEAD = 60;
+
+// current date and time in Varna (Europe/Sofia)
+function sofiaNow() {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Sofia", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date()).map((x) => [x.type, x.value])
+  );
+  return { date: `${p.year}-${p.month}-${p.day}`, time: `${p.hour}:${p.minute}` };
+}
+
+function isBookable(date, time) {
+  const day = new Date(`${date}T12:00:00Z`);
+  if (isNaN(day)) return false;
+  const hours = OPEN[day.getUTCDay()];
+  if (!hours) return false;
+  const [h, m] = time.split(":").map(Number);
+  if (!(m === 0 || m === 30) || h < hours[0] || h >= hours[1]) return false;
+  const now = sofiaNow();
+  if (date < now.date || (date === now.date && time <= now.time)) return false;
+  const limit = new Date(`${now.date}T12:00:00Z`);
+  limit.setUTCDate(limit.getUTCDate() + DAYS_AHEAD);
+  return day <= limit;
+}
+
 const clean = (v, max) => String(v ?? "").replace(/[<>]/g, "").trim().slice(0, max);
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
@@ -74,6 +102,7 @@ export default async (req) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
     return json({ ok: false, error: "date/time" }, 400);
   }
+  if (!isBookable(date, time)) return json({ ok: false, error: "closed" }, 400);
 
   const store = getStore({ name: "leads", consistency: "strong" });
   const now = Date.now();
