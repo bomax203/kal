@@ -629,8 +629,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){
         if(!r.ok)throw new Error('send failed');
-        form.innerHTML='<div class="done"><h3>Request received</h3><p></p></div>';
-        form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
+        return r.json().catch(function(){return {};});
+      })
+      .then(function(res){
+        form.innerHTML='<div class="done"><h3></h3><p></p></div>';
+        if(res.duplicate){
+          form.querySelector('.done h3').textContent='We already have your request';
+          form.querySelector('.done p').textContent='You sent a request from this number earlier today. We will call you soon — no need to send it again.';
+        }else{
+          form.querySelector('.done h3').textContent='Request received';
+          form.querySelector('.done p').textContent=svc+' × '+units+'. We will call you within [1 hour] during working hours to confirm.';
+        }
       })
       .catch(function(){
         btn.disabled=false;btn.textContent='Request appointment';
