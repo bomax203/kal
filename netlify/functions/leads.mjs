@@ -7,6 +7,43 @@ import { leadsStore, sameSecret, isPast } from "../lib/shared.mjs";
 
 export const config = { path: "/api/leads" };
 
+// phone in international digits for WhatsApp/Viber links: 088… -> 35988…, +380… -> 380…
+function intl(phone) {
+  const raw = String(phone || "").trim();
+  let d = raw.replace(/\D/g, "");
+  if (d.startsWith("00")) d = d.slice(2);
+  else if (!raw.startsWith("+") && d.startsWith("0")) d = "359" + d.slice(1); // local Bulgarian number
+  return d;
+}
+
+const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const W = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+function nice(date) {
+  const t = new Date(`${date}T12:00:00Z`);
+  return isNaN(t) ? date : `${W[t.getUTCDay()]} ${t.getUTCDate()} ${M[t.getUTCMonth()]}`;
+}
+
+// ready-made message the owner sends from his own phone
+function clientMessage(l, status) {
+  const when = `${nice(l.date)} at ${l.time}`;
+  if (status === "cancelled") {
+    return `Hello ${l.name}! Your booking (${l.service}) on ${when} has been cancelled. ` +
+      `If you want a new time, just reply here or book on our website. Sorry for the inconvenience!`;
+  }
+  return `Hello ${l.name}! We confirm your booking: ${l.service} x ${l.units} on ${when}. ` +
+    `If anything changes, just reply to this message. See you soon!`;
+}
+
+function contactButtons(l, status) {
+  const n = intl(l.phone);
+  if (n.length < 9) return "";
+  const wa = `https://wa.me/${n}?text=${encodeURIComponent(clientMessage(l, status))}`;
+  const vb = `viber://chat?number=%2B${n}`;
+  const label = status === "cancelled" ? "Tell client: cancelled" : "Confirm to client";
+  return `<div class="msg"><a class="wa" href="${wa}" target="_blank" rel="noopener">WhatsApp: ${label}</a>` +
+    `<a class="vb" href="${vb}">Viber</a></div>`;
+}
+
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 export default async (req) => {
@@ -36,7 +73,8 @@ export default async (req) => {
       <td><b>${esc(l.date)} ${esc(l.time)}</b></td><td>${esc(l.name)}</td><td>${esc(l.phone)}</td>
       <td>${esc(l.service)} × ${esc(l.units)}</td><td>${esc(l.area)}</td><td>${esc(l.note)}</td>
       <td>${statusCell}</td><td>${l.delivered && l.delivered.length ? esc(l.delivered.join(", ")) : "<b>not sent</b>"}</td>
-      <td>${esc((l.at || "").replace("T", " ").slice(0, 16))}</td><td>${action}</td></tr>`;
+      <td>${esc((l.at || "").replace("T", " ").slice(0, 16))}</td>
+      <td>${action}${status === "cancelled" || canCancel ? contactButtons(l, status) : ""}</td></tr>`;
   }).join("");
 
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -53,6 +91,9 @@ tr.cx td{color:#888}
 .st.on{background:#DFF3E7;color:#1D6B43}.st.off{background:#F7E1DC;color:#9A3A28}.st.past{background:#ECECEC;color:#555}
 button{min-height:36px;padding:0 12px;border:1px solid #9A3A28;background:#fff;color:#9A3A28;font-weight:600;cursor:pointer;white-space:nowrap}
 button:hover{background:#9A3A28;color:#fff}
+.msg{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.msg a{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;font-weight:600;text-decoration:none;white-space:nowrap;border-radius:4px}
+.msg .wa{background:#1F8F4E;color:#fff}.msg .vb{background:#6F4FC9;color:#fff}
 </style>
 <script>function confirmCancel(f){var b=f.querySelector('button');if(b.dataset.sure){return true;}b.dataset.sure='1';b.textContent='Tap again to confirm';setTimeout(function(){b.dataset.sure='';b.textContent='Cancel & free time';},4000);return false;}</script>
 </head><body>
