@@ -88,5 +88,8 @@ export default async (req) => {
   await store.setJSON(`token/${token}`, { leadKey });
 
   const cancel = `/cancel.html?t=${token}`;
-  return result.ok ? json({ ok: true, cancel }) : json({ ok: false, error: "delivery failed", saved: true }, 502);
+  // The booking is saved and the slot is reserved either way, so the client IS booked.
+  // If WhatsApp did not answer, the owner still sees it on the requests page ("not sent").
+  if (!result.ok) console.error(`lead: saved ${leadKey} but the owner notification failed`);
+  return json({ ok: true, cancel, notified: result.ok });
 };
