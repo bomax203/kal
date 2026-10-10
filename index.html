@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="bg">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Varna AC Landing</title>
-<meta name="description" content="Air conditioner cleaning, installation and repair in Varna. Book online.">
+<title>Климатици Варна — почистване, монтаж и ремонт</title>
+<meta name="description" content="Почистване, монтаж и ремонт на климатици във Варна. Запишете час онлайн.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -76,19 +76,25 @@ section{padding-block:96px}
 
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:14px 28px;padding-block:12px;flex-wrap:wrap}
+.top .wrap{display:flex;align-items:center;gap:12px 18px;padding-block:12px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
 .logo-box{width:42px;height:42px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:700 16px/1 var(--f-display);letter-spacing:.04em}
 .logo-txt{display:flex;flex-direction:column;line-height:1.05}
 .logo-txt b{font:700 19px/1.05 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
-.logo-txt span{font:500 11px/1.2 var(--f-display);letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
-.nav{display:flex;gap:6px 26px;flex-wrap:wrap}
-.nav a{font:500 14px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding-block:12px}
+.logo-txt span{font:500 11px/1.2 var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.nav{display:flex;gap:6px 16px;flex-wrap:nowrap}
+.nav a{font:500 14px/1 var(--f-display);letter-spacing:.06em;white-space:nowrap;text-transform:uppercase;text-decoration:none;color:var(--muted);padding-block:12px}
 .nav a:hover{color:var(--fg)}
+.langs{display:flex;border:1px solid var(--line);background:var(--surface);border-radius:999px;overflow:hidden}
+.langs button{min-width:44px;min-height:44px;border:0;background:transparent;color:var(--muted);font:600 13px/1 var(--f-display);letter-spacing:.12em;cursor:pointer;padding:0 8px}
+.langs button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.langs button:not([aria-pressed="true"]):hover{color:var(--fg)}
 .sky{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:500 13px/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:999px}
 .sky svg{color:var(--accent)}
 .top .btn{min-height:44px;padding:0 20px;font-size:14px}
-@media (max-width:980px){.nav{display:none}}
+@media (max-width:1240px){.nav{display:none}}
+@media (max-width:480px){.logo-txt span{display:none}.top .wrap{gap:10px 10px}.langs button{min-width:40px;padding:0 6px}}
+.sky span{display:none}.sky{padding:0 12px}
 @media (max-width:520px){.top .btn{display:none}}
 
 /* hero */
@@ -98,7 +104,7 @@ section{padding-block:96px}
 @media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
 .hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
 .brand-line{font:600 clamp(18px,2.4vw,28px)/1 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
-.hero h1{font:700 clamp(54px,9vw,112px)/.92 var(--f-display);text-transform:uppercase;letter-spacing:-.005em}
+.hero h1{font:700 clamp(42px,6.4vw,96px)/.92 var(--f-display);text-transform:uppercase;letter-spacing:-.005em;hyphens:auto;overflow-wrap:break-word}
 .hero h1 .w{display:block}
 .hero h1 .day{color:var(--accent)}
 .hero .lead{font-size:19px}
@@ -241,17 +247,17 @@ form.card{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;ba
 .cal-nav:disabled{opacity:.35;cursor:default}
 .cal-dow,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 .cal-dow span{text-align:center;font:500 11px/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-block:4px}
-.day{position:relative;min-height:44px;border:1px solid transparent;background:var(--bg);color:var(--fg);font:500 15px/1 var(--f-mono);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
-.day::after{content:"";position:absolute;bottom:6px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%}
-.day.free::after{background:#2E9E6A}
-.day.few::after{background:#E0A23A}
-.day.full{color:var(--muted);text-decoration:line-through;cursor:not-allowed}
-.day.full::after{background:#C9533E}
-.day.off{background:transparent;color:var(--muted);opacity:.45;cursor:not-allowed}
-.day.today{border-color:var(--line)}
-.day[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.day[aria-pressed="true"]::after{background:var(--on-accent)}
-.day:not(:disabled):hover{border-color:var(--accent)}
+.cal-day{position:relative;min-height:44px;border:1px solid transparent;background:var(--bg);color:var(--fg);font:500 15px/1 var(--f-mono);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.cal-day::after{content:"";position:absolute;bottom:6px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%}
+.cal-day.free::after{background:#2E9E6A}
+.cal-day.few::after{background:#E0A23A}
+.cal-day.full{color:var(--muted);text-decoration:line-through;cursor:not-allowed}
+.cal-day.full::after{background:#C9533E}
+.cal-day.off{background:transparent;color:var(--muted);opacity:.45;cursor:not-allowed}
+.cal-day.today{border-color:var(--line)}
+.cal-day[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.cal-day[aria-pressed="true"]::after{background:var(--on-accent)}
+.cal-day:not(:disabled):hover{border-color:var(--accent)}
 .cal-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
 .cal-legend span{display:inline-flex;align-items:center;gap:6px}
 .lg{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -298,17 +304,18 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top"><span class="logo-box">AC</span><span class="logo-txt"><b>[Brand]</b><span>Air conditioning</span></span></a>
+    <a class="logo" href="#top"><span class="logo-box">AC</span><span class="logo-txt"><b>[Brand]</b><span data-i="logo_sub">Климатици</span></span></a>
     <nav class="nav" aria-label="Main">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#power">Calculator</a>
-      <a href="#results">Before / After</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i="n_about">За нас</a>
+      <a href="#services" data-i="n_services">Услуги</a>
+      <a href="#power" data-i="n_calc">Калкулатор</a>
+      <a href="#results" data-i="n_results">Преди / след</a>
+      <a href="#reviews" data-i="n_reviews">Отзиви</a>
+      <a href="#contact" data-i="n_contact">Контакти</a>
     </nav>
-    <button class="sky" id="sky" type="button" aria-label="Switch day or night"></button>
-    <a class="btn btn-primary" href="#book">Book now</a>
+    <div class="langs" role="group" aria-label="Език" data-ia="a_lang"><button type="button" data-lang="bg" lang="bg">BG</button><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
+    <button class="sky" id="sky" type="button" aria-label="Смяна ден / нощ" data-ia="a_sky"></button>
+    <a class="btn btn-primary" href="#book" data-i="b_booknow">Запиши час</a>
   </div>
 </header>
 
@@ -318,14 +325,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   <canvas id="air" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="hero-copy">
-      <span class="brand-line reveal in">[Brand] Air Conditioning</span>
-      <h1 class="reveal in"><span class="w">Cool days.</span><span class="w day">Warm nights.</span></h1>
-      <p class="lead reveal in">Air conditioner cleaning, installation and repair in Varna. Fresh air all year, from people who show up on time.</p>
+      <span class="brand-line reveal in" data-i="brand_line">[Brand] Климатици</span>
+      <h1 class="reveal in"><span class="w" data-i="h1a">Хладни дни.</span><span class="w day" data-i="h1b">Топли нощи.</span></h1>
+      <p class="lead reveal in" data-i="hero_lead">Почистване, монтаж и ремонт на климатици във Варна. Свеж въздух през цялата година от хора, които идват навреме.</p>
       <div class="cta-row reveal in">
-        <a class="btn btn-primary" href="#book">Book appointment</a>
-        <a class="btn btn-outline" href="#services">Our services</a>
+        <a class="btn btn-primary" href="#book" data-i="btn_book">Запиши час</a>
+        <a class="btn btn-outline" href="#services" data-i="btn_services">Нашите услуги</a>
       </div>
-      <p class="hero-phone reveal in">Call us: <b>[+359 88 000 0000]</b></p>
+      <p class="hero-phone reveal in"><span data-i="call_us">Обадете се:</span> <b>[+359 88 000 0000]</b></p>
     </div>
 
     <div class="unit-wrap reveal in" aria-hidden="true">
@@ -349,16 +356,16 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <section id="about">
   <div class="wrap story">
-    <div class="photo-slot reveal">[Photo of the team or the van]</div>
+    <div class="photo-slot reveal" data-i="photo_slot">[Снимка на екипа или микробуса]</div>
     <div class="story-copy">
-      <span class="eyebrow reveal">Our story</span>
-      <h2 class="h2 reveal">A small team that treats your home like its own</h2>
-      <p class="reveal">[Brand] started in [year] with one van and one technician. Today we clean, install and repair air conditioners across Varna, from studio flats in Levski to houses in Vinitsa.</p>
-      <p class="reveal">We cover the floor, protect the wall and show you photos of the result. You see exactly what was done and what you paid for.</p>
+      <span class="eyebrow reveal" data-i="eb_story">Нашата история</span>
+      <h2 class="h2 reveal" data-i="h_story">Малък екип, който се грижи за дома ви като за свой</h2>
+      <p class="reveal" data-i="p_story1">[Brand] започна през [година] с един бус и един техник. Днес почистваме, монтираме и ремонтираме климатици в цяла Варна — от студия в Левски до къщи във Виница.</p>
+      <p class="reveal" data-i="p_story2">Покриваме пода, пазим стената и ви показваме снимки на резултата. Виждате точно какво е направено и за какво плащате.</p>
       <div class="stats reveal">
-        <div><b>[10+]</b><span>Years in Varna</span></div>
-        <div><b>[5000+]</b><span>Units serviced</span></div>
-        <div><b>[4.9]</b><span>Google rating</span></div>
+        <div><b>[10+]</b><span data-i="st1">години във Варна</span></div>
+        <div><b>[5000+]</b><span data-i="st2">обслужени климатика</span></div>
+        <div><b>[4.9]</b><span data-i="st3">рейтинг в Google</span></div>
       </div>
     </div>
   </div>
@@ -367,35 +374,35 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <section id="services" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">What we offer</span>
-      <h2 class="h2 reveal">Services &amp; prices</h2>
-      <p class="lead reveal">Prices per unit. Several units at one address get a discount.</p>
+      <span class="eyebrow reveal" data-i="eb_offer">Какво предлагаме</span>
+      <h2 class="h2 reveal" data-i="h_services">Услуги и цени</h2>
+      <p class="lead reveal" data-i="p_services">Цените са за един климатик. При няколко климатика на един адрес — отстъпка.</p>
     </div>
     <div class="svc">
       <article class="reveal">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="8" rx="2"/><path d="M6 17c1 1.5 0 3 1 4M12 17c1 1.5 0 3 1 4M18 17c1 1.5 0 3 1 4"/></svg>
-        <h3>Cleaning &amp; service</h3><p>Filters, heat exchanger with active foam, drain line, fan drum and disinfection.</p>
-        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[60 min]</span></div></article>
+        <h3 data-i="s1t">Почистване и профилактика</h3><p data-i="s1d">Филтри, топлообменник с активна пяна, дренаж, барабан на вентилатора и дезинфекция.</p>
+        <div class="meta"><span class="price" data-i="from">от €[ ]</span><span class="dur" data-i="d60">[60 мин]</span></div></article>
       <article class="reveal d1">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>
-        <h3>Installation</h3><p>Pipe run up to [3] m, vacuum test, leak check and a test of every mode.</p>
-        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[3 h]</span></div></article>
+        <h3 data-i="s2t">Монтаж</h3><p data-i="s2d">Тръбен път до [3] м, вакуумиране, проверка за течове и тест на всички режими.</p>
+        <div class="meta"><span class="price" data-i="from">от €[ ]</span><span class="dur" data-i="d3h">[3 ч]</span></div></article>
       <article class="reveal d2">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <h3>Diagnostics &amp; repair</h3><p>Error codes, weak cooling, water leaks. We quote the price before we start.</p>
-        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[on site]</span></div></article>
+        <h3 data-i="s3t">Диагностика и ремонт</h3><p data-i="s3d">Кодове за грешка, слабо охлаждане, теч на вода. Казваме цената преди да започнем.</p>
+        <div class="meta"><span class="price" data-i="from">от €[ ]</span><span class="dur" data-i="donsite">[на място]</span></div></article>
       <article class="reveal">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>
-        <h3>Refrigerant refill</h3><p>We find the leak first, then refill. Otherwise the problem is back in a month.</p>
-        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[60 min]</span></div></article>
+        <h3 data-i="s4t">Зареждане с фреон</h3><p data-i="s4d">Първо откриваме теча, после зареждаме. Иначе след месец проблемът се връща.</p>
+        <div class="meta"><span class="price" data-i="from">от €[ ]</span><span class="dur" data-i="d60">[60 мин]</span></div></article>
       <article class="reveal d1">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-        <h3>Removal &amp; relocation</h3><p>Safe removal with refrigerant recovery, and re-installation at the new place.</p>
-        <div class="meta"><span class="price">from €[ ]</span><span class="dur">[1–3 h]</span></div></article>
+        <h3 data-i="s5t">Демонтаж и преместване</h3><p data-i="s5d">Безопасен демонтаж със събиране на фреона и монтаж на новото място.</p>
+        <div class="meta"><span class="price" data-i="from">от €[ ]</span><span class="dur" data-i="d13h">[1–3 ч]</span></div></article>
       <article class="reveal d2">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
-        <h3>New unit advice</h3><p>We size the unit to your room, not to the ad. Free consultation on site.</p>
-        <div class="meta"><span class="price">Free</span><span class="dur">[visit]</span></div></article>
+        <h3 data-i="s6t">Консултация за нов климатик</h3><p data-i="s6d">Подбираме климатика според стаята, а не според рекламата. Безплатен оглед на място.</p>
+        <div class="meta"><span class="price" data-i="free">Безплатно</span><span class="dur" data-i="dvisit">[оглед]</span></div></article>
     </div>
   </div>
 </section>
@@ -403,22 +410,22 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <section id="power" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Calculator</span>
-      <h2 class="h2 reveal">Which unit do you need?</h2>
-      <p class="lead reveal">Move the slider to your room size. The result is a guide; we confirm the exact power on site.</p>
+      <span class="eyebrow reveal" data-i="eb_calc">Калкулатор</span>
+      <h2 class="h2 reveal" data-i="h_calc">Какъв климатик ви трябва?</h2>
+      <p class="lead reveal" data-i="p_calc">Преместете плъзгача според площта на стаята. Резултатът е ориентировъчен — точната мощност уточняваме на място.</p>
     </div>
     <div class="calc reveal">
       <div class="calc-in">
-        <label for="area">Room size</label>
+        <label for="area" data-i="l_room">Площ на стаята</label>
         <div class="range-row">
           <input type="range" id="area" min="10" max="80" step="1" value="25">
           <output id="area-out" class="mono" for="area">25 m²</output>
         </div>
-        <label class="check"><input type="checkbox" id="sunny"> Lots of sun, top floor or a large glazed balcony</label>
-        <label class="check"><input type="checkbox" id="kitchen"> The room is open to the kitchen</label>
+        <label class="check"><input type="checkbox" id="sunny"> <span data-i="chk_sun">Много слънце, последен етаж или голяма остъклена тераса</span></label>
+        <label class="check"><input type="checkbox" id="kitchen"> <span data-i="chk_kitchen">Стаята е свързана с кухнята</span></label>
       </div>
       <div class="calc-out" aria-live="polite">
-        <small>Recommended class</small>
+        <small data-i="rec_class">Препоръчителен клас</small>
         <div class="big" id="btu">12 000 BTU</div>
         <div class="kw" id="kw">≈ 3.5 kW</div>
         <div class="calc-scale" id="scale"><span data-c="0">9k</span><span data-c="1">12k</span><span data-c="2">18k</span><span data-c="3">24k</span></div>
@@ -431,62 +438,62 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <section id="results" class="ba-band">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Results</span>
-      <h2 class="h2 reveal">Before &amp; after</h2>
-      <p class="lead reveal">Drag the handle to compare. This is what sits inside a unit that has not been cleaned for two seasons.</p>
+      <span class="eyebrow reveal" data-i="eb_results">Резултати</span>
+      <h2 class="h2 reveal" data-i="h_ba">Преди и след</h2>
+      <p class="lead reveal" data-i="p_ba">Плъзнете дръжката, за да сравните. Ето какво има в климатик, непочистван два сезона.</p>
     </div>
     <div class="ba-grid">
       <div class="ba reveal">
         <div class="ba-frame" style="--pos:50%">
           <div class="ba-layer coil-dirty"></div>
           <div class="ba-layer ba-after coil-clean"></div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare heat exchanger before and after" id="ba1">
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Сравнете топлообменника преди и след" data-ia="ba1a" id="ba1">
           <span class="ba-line"></span>
           <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
-          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+          <span class="ba-tag l" data-i="before">Преди</span><span class="ba-tag r" data-i="after">След</span>
         </div>
-        <h3>Heat exchanger</h3><p>Dust and grease between the fins block the airflow.</p>
+        <h3 data-i="ba1t">Топлообменник</h3><p data-i="ba1d">Прах и мазнина между ламелите спират въздушния поток.</p>
       </div>
       <div class="ba reveal d1">
         <div class="ba-frame" style="--pos:50%">
           <div class="ba-layer filter-dirty"></div>
           <div class="ba-layer ba-after filter-clean"></div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare filter before and after" id="ba2">
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Сравнете филтъра преди и след" data-ia="ba2a" id="ba2">
           <span class="ba-line"></span>
           <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
-          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+          <span class="ba-tag l" data-i="before">Преди</span><span class="ba-tag r" data-i="after">След</span>
         </div>
-        <h3>Air filter</h3><p>A clogged filter makes the unit work harder for the same result.</p>
+        <h3 data-i="ba2t">Въздушен филтър</h3><p data-i="ba2d">Запушеният филтър кара климатика да работи повече за същия резултат.</p>
       </div>
       <div class="ba reveal d2">
         <div class="ba-frame" style="--pos:50%">
           <div class="ba-layer fan-dirty"></div>
           <div class="ba-layer ba-after fan-clean"></div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare fan drum before and after" id="ba3">
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Сравнете барабана на вентилатора преди и след" data-ia="ba3a" id="ba3">
           <span class="ba-line"></span>
           <span class="ba-knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
-          <span class="ba-tag l">Before</span><span class="ba-tag r">After</span>
+          <span class="ba-tag l" data-i="before">Преди</span><span class="ba-tag r" data-i="after">След</span>
         </div>
-        <h3>Fan drum</h3><p>Black mould here is the source of that smell when you switch it on.</p>
+        <h3 data-i="ba3t">Барабан на вентилатора</h3><p data-i="ba3d">Черната плесен тук е причината за миризмата при включване.</p>
       </div>
     </div>
-    <p class="ba-note reveal">[Illustrations — replace with the company's own before/after photos.]</p>
+    <p class="ba-note reveal" data-i="ba_note">[Илюстрации — заменете със собствените снимки преди/след на фирмата.]</p>
   </div>
 </section>
 
 <section id="process">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">How we clean</span>
-      <h2 class="h2 reveal">Six steps, about an hour per unit</h2>
+      <span class="eyebrow reveal" data-i="eb_proc">Как почистваме</span>
+      <h2 class="h2 reveal" data-i="h_proc">Шест стъпки, около час на климатик</h2>
     </div>
     <ol class="proc">
-      <li class="reveal"><span class="n">01</span><div><h3>Protect the wall</h3><p>A cleaning bib under the unit sends the water into a bucket, not down your wall.</p></div></li>
-      <li class="reveal d1"><span class="n">02</span><div><h3>Filters &amp; cover</h3><p>We remove and wash the filters and the front panel.</p></div></li>
-      <li class="reveal d2"><span class="n">03</span><div><h3>Heat exchanger</h3><p>Active foam dissolves dust and grease between the fins.</p></div></li>
-      <li class="reveal"><span class="n">04</span><div><h3>Fan &amp; drain</h3><p>We rinse the fan drum and check that water drains freely.</p></div></li>
-      <li class="reveal d1"><span class="n">05</span><div><h3>Disinfection</h3><p>Treatment against bacteria and mould ends the smell.</p></div></li>
-      <li class="reveal d2"><span class="n">06</span><div><h3>Test &amp; photos</h3><p>We run every mode and send you before and after photos.</p></div></li>
+      <li class="reveal"><span class="n">01</span><div><h3 data-i="pr1t">Пазим стената</h3><p data-i="pr1d">Специална яка под климатика отвежда водата в кофа, а не по стената.</p></div></li>
+      <li class="reveal d1"><span class="n">02</span><div><h3 data-i="pr2t">Филтри и панел</h3><p data-i="pr2d">Сваляме и измиваме филтрите и предния панел.</p></div></li>
+      <li class="reveal d2"><span class="n">03</span><div><h3 data-i="pr3t">Топлообменник</h3><p data-i="pr3d">Активна пяна разтваря праха и мазнината между ламелите.</p></div></li>
+      <li class="reveal"><span class="n">04</span><div><h3 data-i="pr4t">Вентилатор и дренаж</h3><p data-i="pr4d">Изплакваме барабана на вентилатора и проверяваме оттичането на водата.</p></div></li>
+      <li class="reveal d1"><span class="n">05</span><div><h3 data-i="pr5t">Дезинфекция</h3><p data-i="pr5d">Обработка срещу бактерии и плесен премахва миризмата.</p></div></li>
+      <li class="reveal d2"><span class="n">06</span><div><h3 data-i="pr6t">Тест и снимки</h3><p data-i="pr6d">Пускаме всички режими и ви изпращаме снимки преди и след.</p></div></li>
     </ol>
   </div>
 </section>
@@ -494,13 +501,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <section id="reviews" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Reviews</span>
-      <h2 class="h2 reveal">What clients say</h2>
+      <span class="eyebrow reveal" data-i="eb_rev">Отзиви</span>
+      <h2 class="h2 reveal" data-i="h_rev">Какво казват клиентите</h2>
     </div>
     <div class="rev">
-      <figure class="reveal"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
-      <figure class="reveal d1"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
-      <figure class="reveal d2"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>[Real review from the company's Google Maps page]</blockquote><figcaption>[Name, district]</figcaption></figure>
+      <figure class="reveal"><span class="stars" aria-label="5 звезди" data-ia="stars">★★★★★</span><blockquote data-i="rev_q">[Истински отзив от страницата на фирмата в Google Maps]</blockquote><figcaption data-i="rev_c">[Име, квартал]</figcaption></figure>
+      <figure class="reveal d1"><span class="stars" aria-label="5 звезди" data-ia="stars">★★★★★</span><blockquote data-i="rev_q">[Истински отзив от страницата на фирмата в Google Maps]</blockquote><figcaption data-i="rev_c">[Име, квартал]</figcaption></figure>
+      <figure class="reveal d2"><span class="stars" aria-label="5 звезди" data-ia="stars">★★★★★</span><blockquote data-i="rev_q">[Истински отзив от страницата на фирмата в Google Maps]</blockquote><figcaption data-i="rev_c">[Име, квартал]</figcaption></figure>
     </div>
   </div>
 </section>
@@ -508,55 +515,55 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <section id="book" class="book-band">
   <div class="wrap book" id="contact">
     <div class="book-side">
-      <span class="eyebrow reveal">Booking</span>
-      <h2 class="h2 reveal">Book a visit</h2>
-      <p class="lead reveal">Pick a service and a day that suits you. We call back to confirm the exact time.</p>
+      <span class="eyebrow reveal" data-i="eb_book">Записване</span>
+      <h2 class="h2 reveal" data-i="h_book">Запишете посещение</h2>
+      <p class="lead reveal" data-i="p_book">Изберете услуга и удобен ден. Ще ви се обадим, за да потвърдим точния час.</p>
       <div class="clist reveal">
-        <div><span>Phone</span><b class="mono" style="user-select:all">[+359 88 000 0000]</b></div>
-        <div><span>Hours</span><b>[Mon–Fri 9:00–18:00 · Sat 9:00–14:00]</b></div>
-        <div><span>Address</span><b>[1 Example St, Varna]</b><a href="https://maps.google.com/?q=Varna" target="_blank" rel="noopener">Open in Google Maps</a></div>
-        <div><span>Areas</span><b>Varna, Asparuhovo, Vladislavovo, Vinitsa, Galata, St. Konstantin</b></div>
+        <div><span data-i="c_phone">Телефон</span><b class="mono" style="user-select:all">[+359 88 000 0000]</b></div>
+        <div><span data-i="c_hours">Работно време</span><b data-i="hours">[Пон–Пет 9:00–18:00 · Съб 9:00–14:00]</b></div>
+        <div><span data-i="c_address">Адрес</span><b data-i="addr">[ул. Примерна 1, Варна]</b><a href="https://maps.google.com/?q=Varna" target="_blank" rel="noopener" data-i="maps">Отвори в Google Maps</a></div>
+        <div><span data-i="c_areas">Райони</span><b data-i="areas">Варна, Аспарухово, Владиславово, Виница, Галата, Св. Константин</b></div>
       </div>
     </div>
 
     <form class="card reveal d1" id="form" novalidate>
-      <div class="field"><label for="f-name">Name</label><input id="f-name" autocomplete="name" required></div>
-      <div class="field"><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel" placeholder="+359 …" required></div>
-      <div class="field full"><label for="f-svc">Service</label>
+      <div class="field"><label for="f-name" data-i="f_name">Име</label><input id="f-name" autocomplete="name" required></div>
+      <div class="field"><label for="f-phone" data-i="f_phone">Телефон</label><input id="f-phone" type="tel" autocomplete="tel" placeholder="+359 …" required></div>
+      <div class="field full"><label for="f-svc" data-i="f_svc">Услуга</label>
         <select id="f-svc">
-          <option>Cleaning &amp; service</option>
-          <option>Installation</option>
-          <option>Diagnostics &amp; repair</option>
-          <option>Refrigerant refill</option>
-          <option>Removal &amp; relocation</option>
-          <option>New unit advice</option>
+          <option value="Cleaning &amp; service" data-i="s1t">Почистване и профилактика</option>
+          <option value="Installation" data-i="s2t">Монтаж</option>
+          <option value="Diagnostics &amp; repair" data-i="s3t">Диагностика и ремонт</option>
+          <option value="Refrigerant refill" data-i="s4t">Зареждане с фреон</option>
+          <option value="Removal &amp; relocation" data-i="s5t">Демонтаж и преместване</option>
+          <option value="New unit advice" data-i="s6t">Консултация за нов климатик</option>
         </select></div>
-      <div class="field"><label for="f-units">Number of units</label><input id="f-units" type="number" min="1" max="20" value="1"></div>
-      <div class="field"><label for="f-area">District</label><input id="f-area" placeholder="e.g. Levski"></div>
+      <div class="field"><label for="f-units" data-i="f_units">Брой климатици</label><input id="f-units" type="number" min="1" max="20" value="1"></div>
+      <div class="field"><label for="f-area" data-i="f_area">Квартал</label><input id="f-area" placeholder="напр. Левски" data-ip="ph_area"></div>
       <div class="field full">
-        <span class="cal-lbl" id="cal-l">Choose a day and time</span>
+        <span class="cal-lbl" id="cal-l" data-i="cal_l">Изберете ден и час</span>
         <div class="cal" role="group" aria-labelledby="cal-l">
           <div class="cal-head">
-            <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button>
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="Предишен месец" data-ia="prev">&#8249;</button>
             <b id="cal-title" aria-live="polite"></b>
-            <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="Следващ месец" data-ia="next">&#8250;</button>
           </div>
-          <div class="cal-dow" aria-hidden="true"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+          <div class="cal-dow" aria-hidden="true"><span data-i="w1">Пн</span><span data-i="w2">Вт</span><span data-i="w3">Ср</span><span data-i="w4">Чт</span><span data-i="w5">Пт</span><span data-i="w6">Сб</span><span data-i="w7">Нд</span></div>
           <div class="cal-grid" id="cal-grid"></div>
-          <div class="cal-legend" aria-hidden="true"><span><i class="lg lg-free"></i>Free</span><span><i class="lg lg-few"></i>Few left</span><span><i class="lg lg-full"></i>Fully booked</span><span><i class="lg lg-off"></i>Closed</span></div>
+          <div class="cal-legend" aria-hidden="true"><span><i class="lg lg-free"></i><span data-i="lg_free">Свободно</span></span><span><i class="lg lg-few"></i><span data-i="lg_few">Малко места</span></span><span><i class="lg lg-full"></i><span data-i="lg_full">Заето</span></span><span><i class="lg lg-off"></i><span data-i="lg_off">Почивен ден</span></span></div>
         </div>
-        <div class="times" id="times" role="group" aria-label="Available times"></div>
+        <div class="times" id="times" role="group" aria-label="Свободни часове" data-ia="times_a"></div>
         <div class="pick-row">
           <p class="sel-sum" id="sel-sum" aria-live="polite"></p>
-          <button type="button" class="link-btn" id="nearest">Nearest free time</button>
+          <button type="button" class="link-btn" id="nearest" data-i="nearest">Най-близкият свободен час</button>
         </div>
       </div>
-      <div class="field full"><label for="f-note">Note (optional)</label><textarea id="f-note" placeholder="Brand, floor, what is wrong…"></textarea></div>
+      <div class="field full"><label for="f-note" data-i="f_note">Бележка (по желание)</label><textarea id="f-note" placeholder="Марка, етаж, какъв е проблемът…" data-ip="ph_note"></textarea></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Leave empty</label><input id="f-hp" tabindex="-1" autocomplete="off"></div>
       <p class="form-err" id="form-err" role="alert"></p>
       <div class="form-foot">
-        <small>We only use your phone number to confirm the visit.</small>
-        <button class="btn btn-primary" type="submit">Request appointment</button>
+        <small data-i="privacy">Използваме телефона ви само за да потвърдим посещението.</small>
+        <button class="btn btn-primary" type="submit" data-i="submit">Изпрати заявка</button>
       </div>
     </form>
   </div>
@@ -565,20 +572,38 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <footer>
   <div class="wrap">
-    <span>© 2026 [Company name] · VAT [BG000000000]</span>
-    <span>Website by [your name]</span>
+    <span data-i="foot_left">© 2026 [Име на фирмата] · ЕИК [000000000]</span>
+    <span data-i="foot_right">Сайт: [вашето име]</span>
   </div>
 </footer>
 
 <div class="mbar">
-  <a class="btn btn-outline" href="tel:+359880000000">Call</a>
-  <a class="btn btn-primary" href="#book">Book</a>
+  <a class="btn btn-outline" href="tel:+359880000000" data-i="m_call">Обади се</a>
+  <a class="btn btn-primary" href="#book" data-i="m_book">Запиши час</a>
 </div>
 
 <script>
 (function(){
   var root=document.documentElement;
   root.classList.add('js');
+
+  /* ---- languages: bg (main), ru, en ----
+     ?lang=ru in the link wins, then the visitor's saved choice, otherwise Bulgarian. */
+  var I18N={"bg":{"title":"Климатици Варна — почистване, монтаж и ремонт","meta":"Почистване, монтаж и ремонт на климатици във Варна. Запишете час онлайн.","logo_sub":"Климатици","n_about":"За нас","n_services":"Услуги","n_calc":"Калкулатор","n_results":"Преди / след","n_reviews":"Отзиви","n_contact":"Контакти","a_lang":"Език","a_sky":"Смяна ден / нощ","b_booknow":"Запиши час","brand_line":"[Brand] Климатици","h1a":"Хладни дни.","h1b":"Топли нощи.","hero_lead":"Почистване, монтаж и ремонт на климатици във Варна. Свеж въздух през цялата година от хора, които идват навреме.","btn_book":"Запиши час","btn_services":"Нашите услуги","call_us":"Обадете се:","photo_slot":"[Снимка на екипа или микробуса]","eb_story":"Нашата история","h_story":"Малък екип, който се грижи за дома ви като за свой","p_story1":"[Brand] започна през [година] с един бус и един техник. Днес почистваме, монтираме и ремонтираме климатици в цяла Варна — от студия в Левски до къщи във Виница.","p_story2":"Покриваме пода, пазим стената и ви показваме снимки на резултата. Виждате точно какво е направено и за какво плащате.","st1":"години във Варна","st2":"обслужени климатика","st3":"рейтинг в Google","eb_offer":"Какво предлагаме","h_services":"Услуги и цени","p_services":"Цените са за един климатик. При няколко климатика на един адрес — отстъпка.","s1t":"Почистване и профилактика","s1d":"Филтри, топлообменник с активна пяна, дренаж, барабан на вентилатора и дезинфекция.","s2t":"Монтаж","s2d":"Тръбен път до [3] м, вакуумиране, проверка за течове и тест на всички режими.","s3t":"Диагностика и ремонт","s3d":"Кодове за грешка, слабо охлаждане, теч на вода. Казваме цената преди да започнем.","s4t":"Зареждане с фреон","s4d":"Първо откриваме теча, после зареждаме. Иначе след месец проблемът се връща.","s5t":"Демонтаж и преместване","s5d":"Безопасен демонтаж със събиране на фреона и монтаж на новото място.","s6t":"Консултация за нов климатик","s6d":"Подбираме климатика според стаята, а не според рекламата. Безплатен оглед на място.","from":"от €[ ]","d60":"[60 мин]","d3h":"[3 ч]","donsite":"[на място]","d13h":"[1–3 ч]","dvisit":"[оглед]","free":"Безплатно","eb_calc":"Калкулатор","h_calc":"Какъв климатик ви трябва?","p_calc":"Преместете плъзгача според площта на стаята. Резултатът е ориентировъчен — точната мощност уточняваме на място.","l_room":"Площ на стаята","chk_sun":"Много слънце, последен етаж или голяма остъклена тераса","chk_kitchen":"Стаята е свързана с кухнята","rec_class":"Препоръчителен клас","eb_results":"Резултати","h_ba":"Преди и след","p_ba":"Плъзнете дръжката, за да сравните. Ето какво има в климатик, непочистван два сезона.","before":"Преди","after":"След","ba1a":"Сравнете топлообменника преди и след","ba2a":"Сравнете филтъра преди и след","ba3a":"Сравнете барабана на вентилатора преди и след","ba1t":"Топлообменник","ba1d":"Прах и мазнина между ламелите спират въздушния поток.","ba2t":"Въздушен филтър","ba2d":"Запушеният филтър кара климатика да работи повече за същия резултат.","ba3t":"Барабан на вентилатора","ba3d":"Черната плесен тук е причината за миризмата при включване.","ba_note":"[Илюстрации — заменете със собствените снимки преди/след на фирмата.]","eb_proc":"Как почистваме","h_proc":"Шест стъпки, около час на климатик","pr1t":"Пазим стената","pr1d":"Специална яка под климатика отвежда водата в кофа, а не по стената.","pr2t":"Филтри и панел","pr2d":"Сваляме и измиваме филтрите и предния панел.","pr3t":"Топлообменник","pr3d":"Активна пяна разтваря праха и мазнината между ламелите.","pr4t":"Вентилатор и дренаж","pr4d":"Изплакваме барабана на вентилатора и проверяваме оттичането на водата.","pr5t":"Дезинфекция","pr5d":"Обработка срещу бактерии и плесен премахва миризмата.","pr6t":"Тест и снимки","pr6d":"Пускаме всички режими и ви изпращаме снимки преди и след.","eb_rev":"Отзиви","h_rev":"Какво казват клиентите","stars":"5 звезди","rev_q":"[Истински отзив от страницата на фирмата в Google Maps]","rev_c":"[Име, квартал]","eb_book":"Записване","h_book":"Запишете посещение","p_book":"Изберете услуга и удобен ден. Ще ви се обадим, за да потвърдим точния час.","c_phone":"Телефон","c_hours":"Работно време","hours":"[Пон–Пет 9:00–18:00 · Съб 9:00–14:00]","c_address":"Адрес","addr":"[ул. Примерна 1, Варна]","maps":"Отвори в Google Maps","c_areas":"Райони","areas":"Варна, Аспарухово, Владиславово, Виница, Галата, Св. Константин","f_name":"Име","f_phone":"Телефон","f_svc":"Услуга","f_units":"Брой климатици","f_area":"Квартал","ph_area":"напр. Левски","cal_l":"Изберете ден и час","prev":"Предишен месец","next":"Следващ месец","w1":"Пн","w2":"Вт","w3":"Ср","w4":"Чт","w5":"Пт","w6":"Сб","w7":"Нд","lg_free":"Свободно","lg_few":"Малко места","lg_full":"Заето","lg_off":"Почивен ден","times_a":"Свободни часове","nearest":"Най-близкият свободен час","f_note":"Бележка (по желание)","ph_note":"Марка, етаж, какъв е проблемът…","privacy":"Използваме телефона ви само за да потвърдим посещението.","submit":"Изпрати заявка","foot_left":"© 2026 [Име на фирмата] · ЕИК [000000000]","foot_right":"Сайт: [вашето име]","m_call":"Обади се","m_book":"Запиши час","day":"Ден","night":"Нощ","mode_day":"Ден · охлаждане 20°","mode_night":"Нощ · отопление 24°","kw":"Нужни ≈ {a} kW · климатик ≈ {b} kW","hint0":"Подходящ за малка спалня или кабинет.","hint1":"Подходящ за повечето спални и детски стаи.","hint2":"За хол или голяма стая.","hint3":"За голям хол или хол, свързан с кухнята.","hint_over":"Препоръчваме мулти-сплит система или два климатика. Обадете ни се за безплатен оглед.","d_closed":"почивен ден","d_full":"всичко е заето","d_freeN":"свободни часове: {n}","times_empty":"Изберете ден, за да видите свободните часове.","t_booked":"Заето","t_na":"Не е възможно","sel":"Избрано: {w}","pick_time":"Сега изберете час","no_free":"Няма свободни часове през следващите {n} дни. Моля, обадете ни се.","e_name":"Моля, въведете име, за да знаем как да ви се обърнем.","e_phone":"Проверете телефона — нужни са поне 9 цифри.","e_slot":"Моля, изберете свободен ден и час в календара.","sending":"Изпращане…","e_taken":"Съжаляваме, {w} току-що беше зает. Моля, изберете друг час.","e_send":"Не успяхме да изпратим заявката. Обадете ни се на [+359 88 000 0000] или опитайте отново.","dup_t":"Вече сте записани","dup_p":"Вече имаме вашата заявка за {w}. Няма нужда да я изпращате отново.","ok_t":"Заявката е приета","ok_p":"{s} × {u}, {w}. Ще ви се обадим до [1 час] в работно време, за да потвърдим.","cn_lead":"Не можете да дойдете?","cn_link":"Откажете този час","cn_small":"Запазете тази връзка или направете снимка на екрана — това е вашата лична връзка за отказ."},"ru":{"title":"Кондиционеры Варна — чистка, установка и ремонт","meta":"Чистка, установка и ремонт кондиционеров в Варне. Онлайн-запись.","logo_sub":"Кондиционеры","n_about":"О нас","n_services":"Услуги","n_calc":"Калькулятор","n_results":"До / после","n_reviews":"Отзывы","n_contact":"Контакты","a_lang":"Язык","a_sky":"Переключить день / ночь","b_booknow":"Записаться","brand_line":"[Brand] Кондиционеры","h1a":"Прохладные дни.","h1b":"Тёплые ночи.","hero_lead":"Чистка, установка и ремонт кондиционеров в Варне. Свежий воздух круглый год от людей, которые приходят вовремя.","btn_book":"Записаться","btn_services":"Наши услуги","call_us":"Звоните:","photo_slot":"[Фото команды или фургона]","eb_story":"Наша история","h_story":"Небольшая команда, которая относится к вашему дому как к своему","p_story1":"[Brand] начинали в [году] с одного фургона и одного мастера. Сегодня мы чистим, устанавливаем и ремонтируем кондиционеры по всей Варне — от студий в Левски до домов в Винице.","p_story2":"Застилаем пол, защищаем стену и показываем фото результата. Вы видите, что именно сделано и за что вы платите.","st1":"лет в Варне","st2":"обслуженных кондиционеров","st3":"рейтинг в Google","eb_offer":"Что мы предлагаем","h_services":"Услуги и цены","p_services":"Цены за один кондиционер. При нескольких кондиционерах по одному адресу — скидка.","s1t":"Чистка и обслуживание","s1d":"Фильтры, теплообменник активной пеной, дренаж, барабан вентилятора и дезинфекция.","s2t":"Установка","s2d":"Трасса до [3] м, вакуумирование, проверка на утечки и тест всех режимов.","s3t":"Диагностика и ремонт","s3d":"Коды ошибок, слабое охлаждение, течёт вода. Называем цену до начала работы.","s4t":"Заправка фреоном","s4d":"Сначала находим утечку, потом заправляем. Иначе через месяц проблема вернётся.","s5t":"Демонтаж и перенос","s5d":"Аккуратный демонтаж со сбором фреона и установка на новом месте.","s6t":"Консультация по выбору кондиционера","s6d":"Подбираем кондиционер под комнату, а не под рекламу. Бесплатный выезд на осмотр.","from":"от €[ ]","d60":"[60 мин]","d3h":"[3 ч]","donsite":"[на месте]","d13h":"[1–3 ч]","dvisit":"[выезд]","free":"Бесплатно","eb_calc":"Калькулятор","h_calc":"Какой кондиционер вам нужен?","p_calc":"Передвиньте ползунок по площади комнаты. Результат ориентировочный — точную мощность уточним на месте.","l_room":"Площадь комнаты","chk_sun":"Много солнца, последний этаж или большой застеклённый балкон","chk_kitchen":"Комната совмещена с кухней","rec_class":"Рекомендуемый класс","eb_results":"Результаты","h_ba":"До и после","p_ba":"Потяните ручку, чтобы сравнить. Вот что внутри кондиционера, который не чистили два сезона.","before":"До","after":"После","ba1a":"Сравнить теплообменник до и после","ba2a":"Сравнить фильтр до и после","ba3a":"Сравнить барабан вентилятора до и после","ba1t":"Теплообменник","ba1d":"Пыль и жир между ламелями мешают потоку воздуха.","ba2t":"Воздушный фильтр","ba2d":"Забитый фильтр заставляет кондиционер работать больше ради того же результата.","ba3t":"Барабан вентилятора","ba3d":"Чёрная плесень здесь — источник запаха при включении.","ba_note":"[Иллюстрации — замените собственными фото до/после фирмы.]","eb_proc":"Как мы чистим","h_proc":"Шесть шагов, около часа на кондиционер","pr1t":"Защищаем стену","pr1d":"Специальный чехол под кондиционером отводит воду в ведро, а не на стену.","pr2t":"Фильтры и панель","pr2d":"Снимаем и моем фильтры и переднюю панель.","pr3t":"Теплообменник","pr3d":"Активная пена растворяет пыль и жир между ламелями.","pr4t":"Вентилятор и дренаж","pr4d":"Промываем барабан вентилятора и проверяем, что вода свободно уходит.","pr5t":"Дезинфекция","pr5d":"Обработка от бактерий и плесени убирает запах.","pr6t":"Тест и фото","pr6d":"Проверяем все режимы и присылаем фото до и после.","eb_rev":"Отзывы","h_rev":"Что говорят клиенты","stars":"5 звёзд","rev_q":"[Настоящий отзыв со страницы фирмы в Google Maps]","rev_c":"[Имя, район]","eb_book":"Запись","h_book":"Запишитесь на визит","p_book":"Выберите услугу и удобный день. Мы перезвоним, чтобы подтвердить точное время.","c_phone":"Телефон","c_hours":"Часы работы","hours":"[Пн–Пт 9:00–18:00 · Сб 9:00–14:00]","c_address":"Адрес","addr":"[ул. Примерная 1, Варна]","maps":"Открыть в Google Maps","c_areas":"Районы","areas":"Варна, Аспарухово, Владиславово, Виница, Галата, Св. Константин","f_name":"Имя","f_phone":"Телефон","f_svc":"Услуга","f_units":"Количество кондиционеров","f_area":"Район","ph_area":"напр. Левски","cal_l":"Выберите день и время","prev":"Предыдущий месяц","next":"Следующий месяц","w1":"Пн","w2":"Вт","w3":"Ср","w4":"Чт","w5":"Пт","w6":"Сб","w7":"Вс","lg_free":"Свободно","lg_few":"Мало мест","lg_full":"Занято","lg_off":"Выходной","times_a":"Свободное время","nearest":"Ближайшее свободное время","f_note":"Комментарий (по желанию)","ph_note":"Марка, этаж, что случилось…","privacy":"Мы используем ваш телефон только для подтверждения визита.","submit":"Отправить заявку","foot_left":"© 2026 [Название фирмы] · ЕИК [000000000]","foot_right":"Сайт: [ваше имя]","m_call":"Позвонить","m_book":"Записаться","day":"День","night":"Ночь","mode_day":"День · охлаждение 20°","mode_night":"Ночь · обогрев 24°","kw":"Нужно ≈ {a} кВт · кондиционер ≈ {b} кВт","hint0":"Подходит для небольшой спальни или кабинета.","hint1":"Подходит для большинства спален и детских.","hint2":"Для гостиной или большой комнаты.","hint3":"Для большой гостиной или гостиной с кухней.","hint_over":"Рекомендуем мульти-сплит систему или два кондиционера. Позвоните нам для бесплатного выезда.","d_closed":"выходной","d_full":"всё занято","d_freeN":"свободно: {n}","times_empty":"Выберите день, чтобы увидеть свободное время.","t_booked":"Занято","t_na":"Недоступно","sel":"Выбрано: {w}","pick_time":"Теперь выберите время","no_free":"Нет свободного времени в ближайшие {n} дней. Пожалуйста, позвоните нам.","e_name":"Пожалуйста, введите имя, чтобы мы знали, как к вам обращаться.","e_phone":"Проверьте номер телефона — нужно минимум 9 цифр.","e_slot":"Пожалуйста, выберите свободный день и время в календаре.","sending":"Отправляем…","e_taken":"Извините, {w} только что заняли. Пожалуйста, выберите другое время.","e_send":"Не удалось отправить заявку. Позвоните нам: [+359 88 000 0000] или попробуйте ещё раз.","dup_t":"Вы уже записаны","dup_p":"Ваша заявка на {w} уже у нас. Отправлять повторно не нужно.","ok_t":"Заявка принята","ok_p":"{s} × {u}, {w}. Мы перезвоним в течение [1 часа] в рабочее время, чтобы подтвердить.","cn_lead":"Не получается прийти?","cn_link":"Отменить запись","cn_small":"Сохраните эту ссылку или сделайте скриншот — это ваша личная ссылка для отмены."},"en":{"title":"Air Conditioning Varna — cleaning, installation and repair","meta":"Air conditioner cleaning, installation and repair in Varna. Book online.","logo_sub":"Air con","n_about":"About","n_services":"Services","n_calc":"Calculator","n_results":"Before / After","n_reviews":"Reviews","n_contact":"Contact","a_lang":"Language","a_sky":"Switch day or night","b_booknow":"Book now","brand_line":"[Brand] Air Conditioning","h1a":"Cool days.","h1b":"Warm nights.","hero_lead":"Air conditioner cleaning, installation and repair in Varna. Fresh air all year, from people who show up on time.","btn_book":"Book appointment","btn_services":"Our services","call_us":"Call us:","photo_slot":"[Photo of the team or the van]","eb_story":"Our story","h_story":"A small team that treats your home like its own","p_story1":"[Brand] started in [year] with one van and one technician. Today we clean, install and repair air conditioners across Varna, from studio flats in Levski to houses in Vinitsa.","p_story2":"We cover the floor, protect the wall and show you photos of the result. You see exactly what was done and what you paid for.","st1":"Years in Varna","st2":"Units serviced","st3":"Google rating","eb_offer":"What we offer","h_services":"Services & prices","p_services":"Prices per unit. Several units at one address get a discount.","s1t":"Cleaning & service","s1d":"Filters, heat exchanger with active foam, drain line, fan drum and disinfection.","s2t":"Installation","s2d":"Pipe run up to [3] m, vacuum test, leak check and a test of every mode.","s3t":"Diagnostics & repair","s3d":"Error codes, weak cooling, water leaks. We quote the price before we start.","s4t":"Refrigerant refill","s4d":"We find the leak first, then refill. Otherwise the problem is back in a month.","s5t":"Removal & relocation","s5d":"Safe removal with refrigerant recovery, and re-installation at the new place.","s6t":"New unit advice","s6d":"We size the unit to your room, not to the ad. Free consultation on site.","from":"from €[ ]","d60":"[60 min]","d3h":"[3 h]","donsite":"[on site]","d13h":"[1–3 h]","dvisit":"[visit]","free":"Free","eb_calc":"Calculator","h_calc":"Which unit do you need?","p_calc":"Move the slider to your room size. The result is a guide; we confirm the exact power on site.","l_room":"Room size","chk_sun":"Lots of sun, top floor or a large glazed balcony","chk_kitchen":"The room is open to the kitchen","rec_class":"Recommended class","eb_results":"Results","h_ba":"Before & after","p_ba":"Drag the handle to compare. This is what sits inside a unit that has not been cleaned for two seasons.","before":"Before","after":"After","ba1a":"Compare heat exchanger before and after","ba2a":"Compare filter before and after","ba3a":"Compare fan drum before and after","ba1t":"Heat exchanger","ba1d":"Dust and grease between the fins block the airflow.","ba2t":"Air filter","ba2d":"A clogged filter makes the unit work harder for the same result.","ba3t":"Fan drum","ba3d":"Black mould here is the source of that smell when you switch it on.","ba_note":"[Illustrations — replace with the company's own before/after photos.]","eb_proc":"How we clean","h_proc":"Six steps, about an hour per unit","pr1t":"Protect the wall","pr1d":"A cleaning bib under the unit sends the water into a bucket, not down your wall.","pr2t":"Filters & cover","pr2d":"We remove and wash the filters and the front panel.","pr3t":"Heat exchanger","pr3d":"Active foam dissolves dust and grease between the fins.","pr4t":"Fan & drain","pr4d":"We rinse the fan drum and check that water drains freely.","pr5t":"Disinfection","pr5d":"Treatment against bacteria and mould ends the smell.","pr6t":"Test & photos","pr6d":"We run every mode and send you before and after photos.","eb_rev":"Reviews","h_rev":"What clients say","stars":"5 stars","rev_q":"[Real review from the company's Google Maps page]","rev_c":"[Name, district]","eb_book":"Booking","h_book":"Book a visit","p_book":"Pick a service and a day that suits you. We call back to confirm the exact time.","c_phone":"Phone","c_hours":"Hours","hours":"[Mon–Fri 9:00–18:00 · Sat 9:00–14:00]","c_address":"Address","addr":"[1 Example St, Varna]","maps":"Open in Google Maps","c_areas":"Areas","areas":"Varna, Asparuhovo, Vladislavovo, Vinitsa, Galata, St. Konstantin","f_name":"Name","f_phone":"Phone","f_svc":"Service","f_units":"Number of units","f_area":"District","ph_area":"e.g. Levski","cal_l":"Choose a day and time","prev":"Previous month","next":"Next month","w1":"Mo","w2":"Tu","w3":"We","w4":"Th","w5":"Fr","w6":"Sa","w7":"Su","lg_free":"Free","lg_few":"Few left","lg_full":"Fully booked","lg_off":"Closed","times_a":"Available times","nearest":"Nearest free time","f_note":"Note (optional)","ph_note":"Brand, floor, what is wrong…","privacy":"We only use your phone number to confirm the visit.","submit":"Request appointment","foot_left":"© 2026 [Company name] · VAT [BG000000000]","foot_right":"Website by [your name]","m_call":"Call","m_book":"Book","day":"Day","night":"Night","mode_day":"Day · cooling 20°","mode_night":"Night · heating 24°","kw":"Needed ≈ {a} kW · unit ≈ {b} kW","hint0":"Fits a small bedroom or a home office.","hint1":"Fits most bedrooms and kids' rooms.","hint2":"For a living room or a large room.","hint3":"For a large living room or one open to the kitchen.","hint_over":"We recommend a multi-split or two units. Call us for a free visit.","d_closed":"closed","d_full":"fully booked","d_freeN":"{n} free times","times_empty":"Pick a day to see free times.","t_booked":"Booked","t_na":"Not available","sel":"Selected: {w}","pick_time":"Now pick a time","no_free":"No free times in the next {n} days. Please call us.","e_name":"Please enter your name so we know who to ask for.","e_phone":"Please check the phone number — it needs at least 9 digits.","e_slot":"Please choose a free day and time in the calendar.","sending":"Sending…","e_taken":"Sorry, {w} was just booked by someone else. Please choose another time.","e_send":"We could not send the request. Please call us at [+359 88 000 0000] or try again.","dup_t":"You are already booked","dup_p":"We already have your request for {w}. No need to send it again.","ok_t":"Request received","ok_p":"{s} × {u}, {w}. We will call you within [1 hour] during working hours to confirm.","cn_lead":"Can't make it?","cn_link":"Cancel this booking","cn_small":"Save this link or take a screenshot — it is your personal cancel link."}};
+  var LANGS=['bg','ru','en'],LOC={bg:'bg-BG',ru:'ru-RU',en:'en-GB'};
+  function startLang(){
+    var q=null;try{q=new URLSearchParams(location.search).get('lang');}catch(e){}
+    if(LANGS.indexOf(q)!==-1)return q;
+    var s=null;try{s=localStorage.getItem('site-lang');}catch(e){}
+    return LANGS.indexOf(s)!==-1?s:'bg';
+  }
+  var LANG=startLang();
+  function tr(k,v){
+    var s=(I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k;
+    if(v)for(var p in v)s=s.split('{'+p+'}').join(v[p]);
+    return s;
+  }
+  function num(x){var s=x.toFixed(1);return LANG==='en'?s:s.replace('.',',');}
 
   /* day / night: day = cooling (cold air), night = heating (warm air) */
   var sunIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
@@ -591,9 +616,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   var sky=document.getElementById('sky');
   function paintSky(){
     var n=isNight();
-    sky.innerHTML=(n?moonIcon:sunIcon)+'<span>'+(n?'Night':'Day')+'</span>';
+    sky.innerHTML=(n?moonIcon:sunIcon)+'<span>'+tr(n?'night':'day')+'</span>';
     document.getElementById('unit-temp').textContent=n?'24°':'20°';
-    document.getElementById('mode-txt').textContent=n?'Night · heating 24°':'Day · cooling 20°';
+    document.getElementById('mode-txt').textContent=tr(n?'mode_night':'mode_day');
   }
   function flip(){root.dataset.theme=isNight()?'light':'dark';paintSky();}
   sky.addEventListener('click',flip);
@@ -634,7 +659,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   }else{els.forEach(function(el){el.classList.add('in');});}
 
   /* power calculator: ~100 W cooling per m², +15% sunny, +15% open kitchen (rule of thumb) */
-  var classes=[{btu:'9 000',kw:2.6,hint:'Fits a small bedroom or a home office.'},{btu:'12 000',kw:3.5,hint:'Fits most bedrooms and kids’ rooms.'},{btu:'18 000',kw:5.0,hint:'For a living room or a large room.'},{btu:'24 000',kw:7.0,hint:'For a large living room or one open to the kitchen.'}];
+  var classes=[{btu:'9 000',kw:2.6,hint:'hint0'},{btu:'12 000',kw:3.5,hint:'hint1'},{btu:'18 000',kw:5.0,hint:'hint2'},{btu:'24 000',kw:7.0,hint:'hint3'}];
   var area=document.getElementById('area'),sunny=document.getElementById('sunny'),kitchen=document.getElementById('kitchen');
   function calc(){
     var m=+area.value;
@@ -644,8 +669,8 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     var over=i===-1;if(over)i=3;
     var c=classes[i];
     document.getElementById('btu').textContent=over?'24 000+ BTU':c.btu+' BTU';
-    document.getElementById('kw').textContent='Needed ≈ '+need.toFixed(1)+' kW · unit ≈ '+c.kw.toFixed(1)+' kW';
-    document.getElementById('calc-hint').textContent=over?'We recommend a multi-split or two units. Call us for a free visit.':c.hint;
+    document.getElementById('kw').textContent=tr('kw',{a:num(need),b:num(c.kw)});
+    document.getElementById('calc-hint').textContent=tr(over?'hint_over':c.hint);
     document.querySelectorAll('#scale span').forEach(function(s){s.classList.toggle('on',+s.dataset.c===i);});
   }
   [area,sunny,kitchen].forEach(function(el){el.addEventListener('input',calc);});
@@ -659,18 +684,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
   /* client's language for messages: the site language switch (saved as "site-lang") wins,
      otherwise the browser language. bg = main, ru (also for uk/be browsers), en for everyone else. */
-  function clientLang(){
-    var s=null;try{s=localStorage.getItem('site-lang');}catch(e){}
-    if(s==='bg'||s==='ru'||s==='en')return s;
-    var ls=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||''];
-    for(var i=0;i<ls.length;i++){
-      var l=String(ls[i]).toLowerCase();
-      if(l.indexOf('bg')===0)return 'bg';
-      if(l.indexOf('ru')===0||l.indexOf('uk')===0||l.indexOf('be')===0)return 'ru';
-      if(l.indexOf('en')===0)return 'en';
-    }
-    return 'bg';
-  }
+  function clientLang(){return LANG;}
 
   /* booking calendar */
   var err=document.getElementById('form-err');
@@ -680,8 +694,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   /* working hours: Mon–Fri 9:00–18:00, Sat 9:00–14:00, Sunday closed (last start 30 min before closing) */
   var HOURS={0:[],1:range(9,18),2:range(9,18),3:range(9,18),4:range(9,18),5:range(9,18),6:range(9,14)};
   var DAYS_AHEAD=60;
-  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  function cap(x){return x.charAt(0).toUpperCase()+x.slice(1);}
 
   var todayD=new Date();todayD.setHours(0,0,0,0);
   var lastD=new Date(todayD.getTime());lastD.setDate(lastD.getDate()+DAYS_AHEAD);
@@ -693,7 +706,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   var prevBtn=document.getElementById('cal-prev'),nextBtn=document.getElementById('cal-next');
 
   function parse(s){var p=s.split('-');return new Date(+p[0],p[1]-1,+p[2]);}
-  function nice(s){var t=parse(s);return WD[t.getDay()]+' '+t.getDate()+' '+MONTHS[t.getMonth()].slice(0,3);}
+  /* "Mon 12 Oct" / "пн, 12 окт." / "пн, 12 окт." */
+  function nice(s){return new Intl.DateTimeFormat(LOC[LANG],{weekday:'short',day:'numeric',month:LANG==='bg'?'long':'short'}).format(parse(s));}
+  /* "Mon 12 Oct at 16:00" / "пн, 12 окт., 16:00" / "пн, 12 окт., 16:00 ч." */
+  function when(s,h){return LANG==='en'?nice(s)+' at '+h:LANG==='bg'?nice(s)+', '+h+' ч.':nice(s)+', '+h;}
   function freeTimes(s){
     var t=parse(s);if(t<todayD||t>lastD)return [];
     var now=new Date(),isToday=s===ymd(now),nowHM=pad(now.getHours())+':'+pad(now.getMinutes());
@@ -709,7 +725,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
   }
 
   function renderCal(){
-    titleEl.textContent=MONTHS[view.getMonth()]+' '+view.getFullYear();
+    titleEl.textContent=cap(new Intl.DateTimeFormat(LOC[LANG],{month:'long'}).format(view))+' '+view.getFullYear();
     prevBtn.disabled=view<=new Date(todayD.getFullYear(),todayD.getMonth(),1);
     nextBtn.disabled=new Date(view.getFullYear(),view.getMonth()+1,1)>lastD;
     gridEl.innerHTML='';
@@ -719,31 +735,31 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     for(var dd=1;dd<=days;dd++){
       var s=ymd(new Date(view.getFullYear(),view.getMonth(),dd)),st=status(s);
       var b=document.createElement('button');
-      b.type='button';b.className='day '+st+(s===ymd(todayD)?' today':'');b.textContent=dd;b.dataset.d=s;
+      b.type='button';b.className='cal-day '+st+(s===ymd(todayD)?' today':'');b.textContent=dd;b.dataset.d=s;
       b.disabled=st==='off'||st==='full';
       b.setAttribute('aria-pressed',s===selDate?'true':'false');
       var n=freeTimes(s).length;
-      b.setAttribute('aria-label',nice(s)+(st==='off'?', closed':st==='full'?', fully booked':', '+n+' free times'));
+      b.setAttribute('aria-label',nice(s)+', '+(st==='off'?tr('d_closed'):st==='full'?tr('d_full'):tr('d_freeN',{n:n})));
       b.addEventListener('click',function(){pickDate(this.dataset.d);});
       gridEl.appendChild(b);
     }
   }
   function renderTimes(){
     timesEl.innerHTML='';
-    if(!selDate){timesEl.innerHTML='<p class="times-empty">Pick a day to see free times.</p>';return;}
+    if(!selDate){var pe=document.createElement('p');pe.className='times-empty';pe.textContent=tr('times_empty');timesEl.appendChild(pe);return;}
     var t=parse(selDate),all=HOURS[t.getDay()],free=freeTimes(selDate);
     all.forEach(function(h){
       var b=document.createElement('button');
       b.type='button';b.className='slot';b.textContent=h;b.dataset.t=h;
       var ok=free.indexOf(h)!==-1;b.disabled=!ok;
-      if(!ok)b.title=(booked[selDate]||[]).indexOf(h)!==-1?'Booked':'Not available';
+      if(!ok)b.title=tr((booked[selDate]||[]).indexOf(h)!==-1?'t_booked':'t_na');
       b.setAttribute('aria-pressed',h===selTime?'true':'false');
       b.addEventListener('click',function(){selTime=this.dataset.t;renderTimes();renderSum();});
       timesEl.appendChild(b);
     });
   }
   function renderSum(){
-    sumEl.textContent=selDate&&selTime?'Selected: '+nice(selDate)+' at '+selTime:selDate?'Now pick a time':'';
+    sumEl.textContent=selDate&&selTime?tr('sel',{w:when(selDate,selTime)}):selDate?tr('pick_time'):'';
   }
   function pickDate(s){
     selDate=s;
@@ -756,7 +772,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
       var s=ymd(t),f=freeTimes(s);
       if(f.length){selDate=s;selTime=f[0];view=new Date(t.getFullYear(),t.getMonth(),1);renderCal();renderTimes();renderSum();return;}
     }
-    err.textContent='No free times in the next '+DAYS_AHEAD+' days. Please call us.';
+    err.textContent=tr('no_free',{n:DAYS_AHEAD});
   }
   prevBtn.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);renderCal();});
   nextBtn.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);renderCal();});
@@ -781,12 +797,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
     if(document.getElementById('f-hp').value)return;
     var name=document.getElementById('f-name').value.trim();
     var phone=document.getElementById('f-phone').value.replace(/[^\d+]/g,'');
-    if(!name){err.textContent='Please enter your name so we know who to ask for.';document.getElementById('f-name').focus();return;}
-    if(phone.length<9){err.textContent='Please check the phone number — it needs at least 9 digits.';document.getElementById('f-phone').focus();return;}
-    if(!selDate||!selTime){err.textContent='Please choose a free day and time in the calendar.';timesEl.scrollIntoView({block:'center'});return;}
+    if(!name){err.textContent=tr('e_name');document.getElementById('f-name').focus();return;}
+    if(phone.length<9){err.textContent=tr('e_phone');document.getElementById('f-phone').focus();return;}
+    if(!selDate||!selTime){err.textContent=tr('e_slot');timesEl.scrollIntoView({block:'center'});return;}
     err.textContent='';
-    var btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Sending…';
-    var svc=document.getElementById('f-svc').value,units=parseInt(document.getElementById('f-units').value,10)||1;
+    var btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent=tr('sending');
+    var svcSel=document.getElementById('f-svc');
+    var svc=svcSel.value,svcLabel=svcSel.options[svcSel.selectedIndex].text;   /* value stays English for the server, label is in the visitor's language */
+    var units=parseInt(document.getElementById('f-units').value,10)||1;
     var data={
       service:svc,units:units,name:name,phone:document.getElementById('f-phone').value.trim(),
       area:document.getElementById('f-area').value.trim(),date:selDate,
@@ -799,32 +817,57 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
         return r.json().catch(function(){return {};});
       })
       .then(function(res){
+        var w=when(data.date,data.time);
         if(res.taken){
-          btn.disabled=false;btn.textContent='Request appointment';
-          err.textContent='Sorry, '+data.time+' on '+nice(data.date)+' was just booked by someone else. Please choose another time.';
+          btn.disabled=false;btn.textContent=tr('submit');
+          err.textContent=tr('e_taken',{w:w});
           selTime=null;loadBooked();return;
         }
         form.innerHTML='<div class="done"><h3></h3><p></p></div>';
         if(res.duplicate){
-          form.querySelector('.done h3').textContent='You are already booked';
-          form.querySelector('.done p').textContent='We already have your request for '+nice(data.date)+' at '+data.time+'. No need to send it again.';
+          form.querySelector('.done h3').textContent=tr('dup_t');
+          form.querySelector('.done p').textContent=tr('dup_p',{w:w});
         }else{
-          form.querySelector('.done h3').textContent='Request received';
-          form.querySelector('.done p').textContent=svc+' × '+units+' on '+nice(data.date)+' at '+data.time+'. We will call you within [1 hour] during working hours to confirm.';
+          form.querySelector('.done h3').textContent=tr('ok_t');
+          form.querySelector('.done p').textContent=tr('ok_p',{s:svcLabel,u:units,w:w});
           if(res.cancel){
             var c=document.createElement('p');
             c.className='cancel-note';
-            c.innerHTML='Can’t make it? <a></a><br><small>Save this link or take a screenshot — it is your personal cancel link.</small>';
-            var a=c.querySelector('a');a.href=res.cancel;a.textContent='Cancel this booking';
+            c.innerHTML='<span></span> <a></a><br><small></small>';
+            c.querySelector('span').textContent=tr('cn_lead');
+            var a=c.querySelector('a');a.href=res.cancel;a.textContent=tr('cn_link');
+            c.querySelector('small').textContent=tr('cn_small');
             form.querySelector('.done').appendChild(c);
           }
         }
       })
       .catch(function(){
-        btn.disabled=false;btn.textContent='Request appointment';
-        err.textContent='We could not send the request. Please call us at [+359 88 000 0000] or try again.';
+        btn.disabled=false;btn.textContent=tr('submit');
+        err.textContent=tr('e_send');
       });
   });
+
+  /* ---- language switch ---- */
+  function applyLang(l,save){
+    LANG=l;root.lang=l;
+    if(save){try{localStorage.setItem('site-lang',l);}catch(e){}}
+    document.querySelectorAll('[data-i]').forEach(function(e){e.textContent=tr(e.getAttribute('data-i'));});
+    document.querySelectorAll('[data-ip]').forEach(function(e){e.placeholder=tr(e.getAttribute('data-ip'));});
+    document.querySelectorAll('[data-ia]').forEach(function(e){e.setAttribute('aria-label',tr(e.getAttribute('data-ia')));});
+    document.title=tr('title');
+    var md=document.querySelector('meta[name="description"]');if(md)md.setAttribute('content',tr('meta'));
+    document.querySelectorAll('[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');});
+    err.textContent='';
+    paintSky();calc();renderCal();renderTimes();renderSum();
+  }
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var l=b.getAttribute('data-lang');
+      applyLang(l,true);
+      try{var u=new URL(location.href);if(u.searchParams.has('lang')){u.searchParams.set('lang',l);history.replaceState(null,'',u);}}catch(e){}
+    });
+  });
+  applyLang(LANG,false);
 })();
 </script>
 </body>
